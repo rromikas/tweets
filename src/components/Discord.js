@@ -4,7 +4,19 @@ import UserPhoto from "icons/Photo.png";
 import { SizeMe } from "react-sizeme";
 import Select from "@material-ui/core/Select";
 import moment from "moment";
-import Button from "components/Button";
+
+const Button = ({ primary = true, ...rest }) => {
+  return (
+    <div
+      {...rest}
+      className={`py-.05 px-4 select-none rounded font-bold ${
+        primary
+          ? "bg-blue-500 hover:bg-blue-501 active:bg-blue-502"
+          : "bg-red-500 hover:bg-red-501 active:bg-red-502"
+      }  transition cursor-pointer`}
+    ></div>
+  );
+};
 
 const Discord = () => {
   const [users, setUsers] = useState([
