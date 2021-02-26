@@ -5,19 +5,6 @@ import { SizeMe } from "react-sizeme";
 import Select from "@material-ui/core/Select";
 import moment from "moment";
 
-const Button = ({ primary = true, ...rest }) => {
-  return (
-    <div
-      {...rest}
-      className={`py-.05 px-4 rounded font-bold bg-${
-        primary ? "blue" : "red"
-      }-500 transition cursor-pointer select-none hover:bg-${
-        primary ? "blue" : "red"
-      }-501 active:bg-${primary ? "blue" : "red"}-502`}
-    ></div>
-  );
-};
-
 const Discord = () => {
   const [users, setUsers] = useState([
     { user_photo: UserPhoto },
@@ -33,6 +20,19 @@ const Discord = () => {
     { user_photo: UserPhoto },
     { user_photo: UserPhoto },
   ]);
+
+  const Button = ({ primary = true, ...rest }) => {
+    return (
+      <div
+        {...rest}
+        className={`py-.05 px-4 rounded font-bold bg-${
+          primary ? "blue" : "red"
+        }-500 transition cursor-pointer select-none hover:bg-${
+          primary ? "blue" : "red"
+        }-501 active:bg-${primary ? "blue" : "red"}-502`}
+      ></div>
+    );
+  };
 
   const [channels, setChannels] = useState([
     {
