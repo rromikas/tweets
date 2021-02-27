@@ -40,8 +40,8 @@ const Analytics = () => {
   ];
 
   const figures = [
-    { title: "Checkouts", value: 10 },
     { title: "Tweets Caught", value: 159 },
+    { title: "Checkouts", value: 10 },
     { title: "Failed Checkouts", value: 2 },
     { title: "Servers Joined", value: 8 },
   ];
