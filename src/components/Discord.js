@@ -118,7 +118,6 @@ const Discord = () => {
   const chatRef = useRef(null);
 
   useEffect(() => {
-    let prevScrollTop = 0;
     const scrollChatToBottom = () => {
       setTimeout(() => {
         if (chatRef.current) {

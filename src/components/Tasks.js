@@ -82,7 +82,7 @@ const Tasks = () => {
   ];
 
   return (
-    <div className="w-full h-full flex flex-col text-white">
+    <div className="w-full h-full flex flex-col text-white font-semibold">
       <div className="text-center mb-2 font-bold">Manage Your Tasks</div>
       <SimpleBar
         ref={headerRef}
