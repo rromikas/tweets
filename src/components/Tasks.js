@@ -10,6 +10,7 @@ import Clock from "components/Clock";
 import Modal from "@material-ui/core/Modal";
 import TaskForm from "components/TaskForm";
 import { dashboards } from "enumerators";
+import StatefullValue from "components/StatefullValue";
 
 const Tasks = ({ profiles }) => {
   const [tasks, setTasks] = useState([
@@ -265,7 +266,11 @@ const Tasks = ({ profiles }) => {
                     task.status === "running" ? "text-green" : "text-red-500"
                   } capitalize w-3/12`}
                 >
-                  {task.status}
+                  <StatefullValue
+                    value={task.status}
+                    time={2000}
+                    loadValue={<span className="text-yellow-500">Submitting...</span>}
+                  ></StatefullValue>
                 </div>
               </div>
               <div className="flex w-48 justify-center select-none">
