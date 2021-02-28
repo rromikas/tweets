@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import { useFormik } from "formik";
-import WarningIcon from "icons/Warning.png";
+import WarningIcon from "assets/Warning.png";
+import { v4 as uuidv4 } from "uuid";
 
 const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => {
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: initialData || {
+      id: uuidv4(),
       create: true,
       profile_name: "Profile Name",
       first_name: "",
@@ -16,12 +18,13 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
       exp_month: "",
       exp_year: "",
     },
-    onSubmit: (values) => {
+    onSubmit: (values, { resetForm }) => {
       if (values.create) {
         onCreateSubmit(values);
       } else {
         onEditSubmit(values);
       }
+      resetForm();
     },
   });
 

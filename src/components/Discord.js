@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import SimpleBar from "simplebar-react";
-import UserPhoto from "icons/Photo.png";
+import UserPhoto from "assets/Photo.png";
 import { SizeMe } from "react-sizeme";
 import Select from "@material-ui/core/Select";
 import moment from "moment";
@@ -190,7 +190,6 @@ const Discord = () => {
               <div>
                 <Select
                   className="inline-flex lg:hidden"
-                  renderValue={(val) => console.log("Val", val)}
                   disableUnderline
                   native
                   id="grouped-native-select"

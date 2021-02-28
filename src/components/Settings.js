@@ -1,17 +1,6 @@
 import React, { useState } from "react";
 import SimpleBar from "simplebar-react";
-import CheckIcon from "icons/Check.png";
-
-const Checkbox = ({ checked, onClick }) => {
-  return (
-    <div
-      onClick={() => onClick(checked)}
-      className="cursor-pointer select-none w-7 h-7 bg-blue-900 rounded flex items-center justify-center flex-shrink-0"
-    >
-      {checked ? <img className="max-w-3 max-h-3 w-auto h-auto" src={CheckIcon}></img> : null}
-    </div>
-  );
-};
+import Checkbox from "components/Checkbox";
 
 const Button = ({ primary = true, className = "", ...rest }) => {
   return (

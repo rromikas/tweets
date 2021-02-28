@@ -2,35 +2,12 @@ import React, { useState } from "react";
 import ProfileForm from "components/ProfileForm";
 import Modal from "@material-ui/core/Modal";
 import SimpleBar from "simplebar-react";
-import EditIcon from "icons/Edit.png";
+import EditIcon from "assets/Edit.png";
 import Clock from "components/Clock";
-import CardImage from "icons/Card.svg";
-import CopyIcon from "icons/Copy.png";
+import CardImage from "assets/Card.svg";
+import CopyIcon from "assets/Copy.png";
 
-const Profile = () => {
-  const [profiles, setProfiles] = useState([
-    {
-      profile_name: "Profile Name",
-      first_name: "John",
-      last_name: "Smith",
-      email: "johnsmith@gmail.com",
-      card_number: 1234123412341234,
-      exp_month: 6,
-      exp_year: 2023,
-      postal_code: 12321,
-    },
-    {
-      profile_name: "Profile Name",
-      first_name: "Bryan",
-      last_name: "Cranston",
-      email: "breakingbad@gmail.com",
-      card_number: 1234123412341234,
-      exp_month: 6,
-      exp_year: 3000,
-      postal_code: 12321,
-    },
-  ]);
-
+const Profile = ({ profiles, setProfiles }) => {
   const [profileFormOpened, setProfileFormOpened] = useState(false);
   const [editingProfileIndex, setEditinigProfileIndex] = useState(-1);
 
@@ -56,7 +33,7 @@ const Profile = () => {
   const onCreateSubmit = (values) => {
     setProfiles((prev) => {
       let finalObj = { ...values };
-      delete values["create"];
+      delete finalObj["create"];
       return prev.concat([finalObj]);
     });
     setProfileFormOpened(false);

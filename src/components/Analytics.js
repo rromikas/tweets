@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { XAxis, YAxis, AreaChart, ResponsiveContainer, Tooltip, Area } from "recharts";
+import { AreaChart, ResponsiveContainer, Area } from "recharts";
 import SimpleBar from "simplebar-react";
 import { uuid } from "uuidv4";
 import moment from "moment";
-import CardImage from "icons/Card.svg";
+import CardImage from "assets/Card.svg";
+import { SizeMe } from "react-sizeme";
 
 const Button = ({ className = "", ...rest }) => {
   return (
@@ -40,9 +41,9 @@ const Analytics = () => {
   ];
 
   const figures = [
-    { title: "Tweets Caught", value: 159 },
     { title: "Checkouts", value: 10 },
     { title: "Failed Checkouts", value: 2 },
+    { title: "Tweets Caught", value: 159 },
     { title: "Servers Joined", value: 8 },
   ];
 
@@ -69,80 +70,90 @@ const Analytics = () => {
   return (
     <div className="w-full h-full flex flex-col text-white font-bold">
       <div className="text-center mb-3 font-bold">Analytics</div>
-      <SimpleBar className="flex-grow h-0 px-5">
-        <div className="mb-2">Key Vault</div>
-        <div className="flex flex-wrap overflow-hidden">
-          <div className="sm:w-1/3 md:w-full lg:w-1/3 w-full">
-            <SimpleBar className="bg-blue-900 p-4 rounded sm:mr-5 md:mr-0 lg:mr-5 h-80">
-              {keys.map((x, i) => (
-                <div key={x.title} className="flex flex-wrap items-center mb-6">
-                  <div className="mr-2">{x.title}:</div>
-                  <div className="text-green mr-2">{`${x.keys.length} Keys`}</div>
-                  <div className="text-xs bg-blue-500 rounded-xl px-3 py-0.5">View All Keys</div>
+      <SizeMe monitorHeight>
+        {({ size }) => (
+          <SimpleBar className="flex-grow h-0 px-5">
+            <div style={{ height: size.height }} className="flex flex-col">
+              <div className="mb-2">Key Vault</div>
+              <div className="flex flex-wrap overflow-hidden flex-shrink-0">
+                <div className="sm:w-1/3 md:w-full lg:w-1/3 w-full">
+                  <SimpleBar className="bg-blue-900 p-4 rounded sm:mr-5 md:mr-0 lg:mr-5 h-80">
+                    {keys.map((x, i) => (
+                      <div key={x.title} className="flex flex-wrap items-center mb-6">
+                        <div className="mr-2">{x.title}:</div>
+                        <div className="text-green mr-2">{`${x.keys.length} Keys`}</div>
+                        <div className="text-xs bg-blue-500 rounded-xl px-3 py-0.5">
+                          View All Keys
+                        </div>
+                      </div>
+                    ))}
+                  </SimpleBar>
+                  <div className="pt-4 mb-5">
+                    <Button>Export</Button>
+                  </div>
                 </div>
-              ))}
-            </SimpleBar>
-            <div className="pt-4 mb-5">
-              <Button>Export</Button>
-            </div>
-          </div>
-          <div className="sm:w-2/3 md:w-full lg:w-2/3 w-full">
-            <div className="h-80 relative bg-blue-900 rounded pt-14 flex flex-col overflow-hidden mb-1">
-              <div className="absolute top-4 left-4 z-10">
-                {modes.map((x) => (
-                  <Button key={`mode-${x}`} onClick={() => setChartMode(x)}>
-                    {x}
-                  </Button>
+                <div className="sm:w-2/3 md:w-full lg:w-2/3 w-full">
+                  <div className="h-80 relative bg-blue-900 rounded pt-14 flex flex-col overflow-hidden mb-1">
+                    <div className="absolute top-4 left-4 z-10">
+                      {modes.map((x) => (
+                        <Button key={`mode-${x}`} onClick={() => setChartMode(x)}>
+                          {x}
+                        </Button>
+                      ))}
+                    </div>
+                    <ResponsiveContainer width="100%">
+                      <AreaChart data={chartData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+                        <defs>
+                          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#4fff9e" />
+                            <stop offset="95%" stopColor="#524eee" />
+                          </linearGradient>
+                        </defs>
+                        <Area
+                          type="basis"
+                          dataKey="value"
+                          stroke="none"
+                          fillOpacity={1}
+                          fill="url(#colorUv)"
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                  <div className="flex justify-between mb-5">
+                    {chartData.map((x, i) => (
+                      <div key={`tick-${i}`}>
+                        {chartMode === "week"
+                          ? moment(x.date).format("ddd")
+                          : chartMode === "month"
+                          ? moment(x.date).format("MMM")
+                          : moment(x.date).format("YYYY-MM")}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-wrap justify-center pb-4 flex-grow items-center">
+                {figures.map((x, i) => (
+                  <div
+                    key={`figure-${i}`}
+                    className="rounded-xl flex-none mb-4 mr-4 bg-cover bg-center w-56 bg-opacity-50 p-3"
+                    style={{ backgroundImage: `url(${CardImage})` }}
+                  >
+                    <div className="pt-7 text-xl mb-1 text-center">{x.title}</div>
+                    <div
+                      className={`${
+                        x.value < 5 ? "text-red-500" : "text-green"
+                      } text-4xl text-center`}
+                    >
+                      {x.value}
+                    </div>
+                  </div>
                 ))}
               </div>
-              <ResponsiveContainer width="100%">
-                <AreaChart data={chartData} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
-                  <defs>
-                    <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#4fff9e" />
-                      <stop offset="95%" stopColor="#524eee" />
-                    </linearGradient>
-                  </defs>
-                  <Area
-                    type="basis"
-                    dataKey="value"
-                    stroke="none"
-                    fillOpacity={1}
-                    fill="url(#colorUv)"
-                  />
-                </AreaChart>
-              </ResponsiveContainer>
             </div>
-            <div className="flex justify-between mb-5">
-              {chartData.map((x, i) => (
-                <div key={`tick-${i}`}>
-                  {chartMode === "week"
-                    ? moment(x.date).format("ddd")
-                    : chartMode === "month"
-                    ? moment(x.date).format("MMM")
-                    : moment(x.date).format("YYYY-MM")}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-wrap justify-center pb-4">
-          {figures.map((x, i) => (
-            <div
-              key={`figure-${i}`}
-              className="rounded-xl flex-none mb-4 mr-4 bg-cover bg-center w-56 bg-opacity-50 p-3"
-              style={{ backgroundImage: `url(${CardImage})` }}
-            >
-              <div className="pt-7 text-xl mb-1 text-center">{x.title}</div>
-              <div
-                className={`${x.value < 5 ? "text-red-500" : "text-green"} text-4xl text-center`}
-              >
-                {x.value}
-              </div>
-            </div>
-          ))}
-        </div>
-      </SimpleBar>
+          </SimpleBar>
+        )}
+      </SizeMe>
     </div>
   );
 };

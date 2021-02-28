@@ -1,10 +1,10 @@
 import React from "react";
-import HomeIcon from "icons/Home.png";
-import TasksIcon from "icons/Tasks.png";
-import ProfileIcon from "icons/Profile.png";
-import DiscordIcon from "icons/Discord.png";
-import SettingsIcon from "icons/Settings.png";
-import AnalyticsIcon from "icons/Analytics.png";
+import HomeIcon from "assets/Home.png";
+import TasksIcon from "assets/Tasks.png";
+import ProfileIcon from "assets/Profile.png";
+import DiscordIcon from "assets/Discord.png";
+import SettingsIcon from "assets/Settings.png";
+import AnalyticsIcon from "assets/Analytics.png";
 
 const items = [
   { title: "Home", icon: HomeIcon },
@@ -26,8 +26,8 @@ const Menu = ({ page, setPage, closeMenu = () => {} }) => {
           }}
           key={`menu-item-${i}`}
           className={`flex items-center ${
-            page !== i ? "hover:" : ""
-          }bg-blue-600 rounded-2xl px-4 py-3.5 mb-2 transition cursor-pointer w-52`}
+            page !== i ? "hover:bg-blue-600" : "bg-blue-600"
+          } rounded-2xl px-4 py-3.5 mb-2 transition cursor-pointer w-52`}
         >
           <img width={20} src={x.icon} className="mr-3"></img>
           <div>{x.title}</div>
