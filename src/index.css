@@ -7,8 +7,7 @@ body {
   padding: 0;
   font-family: "Jost", sans-serif;
 }
-@layer utilities {
-  .simplebar-scrollbar::before {
-    background-color: rgba(0, 0, 0, 0.6) !important;
-  }
+
+.simplebar-scrollbar::before {
+  background-color: rgba(0, 0, 0, 0.6) !important;
 }
