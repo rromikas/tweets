@@ -13,6 +13,7 @@ import { dashboards } from "enumerators";
 import StatefullValue from "components/StatefullValue";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { v4 as uuidv4 } from "uuid";
+import Collapse from "@material-ui/core/Collapse";
 
 const Tasks = ({ profiles }) => {
   const [tasks, setTasks] = useState([
@@ -203,7 +204,7 @@ const Tasks = ({ profiles }) => {
   };
 
   const onInfo = (index) => () => {
-    alert("implement info");
+    setShowInfoTaskId(tasks[index].id === showInfoTaskId ? "" : tasks[index].id);
   };
 
   const taskActions = [
@@ -232,6 +233,8 @@ const Tasks = ({ profiles }) => {
   const addTask = (values) => {
     setTasks((prev) => prev.concat([values]));
   };
+
+  const [showInfoTaskId, setShowInfoTaskId] = useState("");
 
   return (
     <div className="w-full h-full flex flex-col text-white font-medium">
@@ -266,38 +269,78 @@ const Tasks = ({ profiles }) => {
       <SimpleBar ref={bodyRef} className="flex-grow h-0 ml-5 mr-1 mb-4 pr-4">
         {tasks.map((task, i) => (
           <div style={{ minWidth: 700 }} key={`task-${task.id}`}>
-            <div className="flex bg-blue-700 mb-2 rounded py-2" key={`task-${i}`}>
-              <div className="flex flex-grow text-center">
-                <div className="w-3/12">{task.username}</div>
-                <div
-                  className={`${task.retweet ? "text-green" : "text-red-500"} capitalize w-3/12`}
-                >
-                  {task.retweet.toString()}
-                </div>
-                <div className="w-3/12">{task.delay}</div>
-                <div
-                  className={`${
-                    task.status === "running" ? "text-green" : "text-red-500"
-                  } capitalize w-3/12`}
-                >
-                  <StatefullValue
-                    value={task.status}
-                    time={2000}
-                    loadValue={<span className="text-yellow-500">Submitting...</span>}
-                  ></StatefullValue>
-                </div>
-              </div>
-              <div className="flex w-48 justify-center select-none">
-                {taskActions.map((action, j) => (
+            <div className="bg-blue-700 mb-2 rounded py-2">
+              <div className="flex">
+                <div className="flex flex-grow text-center">
+                  <div className="w-3/12">{task.username}</div>
                   <div
-                    key={`task-${0}-action-${j}`}
-                    onClick={action.onClick(i)}
-                    className="rounded w-7 h-7 p-1.5 active:bg-blue-800 bg-blue-800 active hover:bg-blue-900 hover:scale-105 transform cursor-pointer transition-all flex items-center justify-center mr-2"
+                    className={`${task.retweet ? "text-green" : "text-red-500"} capitalize w-3/12`}
                   >
-                    <img alt="" className="h-auto max-h-4 max-w-4 w-auto" src={action.icon}></img>
+                    {task.retweet.toString()}
                   </div>
-                ))}
+                  <div className="w-3/12">{task.delay}</div>
+                  <div
+                    className={`${
+                      task.status === "running" ? "text-green" : "text-red-500"
+                    } capitalize w-3/12`}
+                  >
+                    <StatefullValue
+                      value={task.status}
+                      time={2000}
+                      loadValue={<span className="text-yellow-500">Submitting...</span>}
+                    ></StatefullValue>
+                  </div>
+                </div>
+                <div className="flex w-48 justify-center select-none">
+                  {taskActions.map((action, j) => (
+                    <div
+                      key={`task-${0}-action-${j}`}
+                      onClick={action.onClick(i)}
+                      className="rounded w-7 h-7 p-1.5 active:bg-blue-800 bg-blue-800 active hover:bg-blue-900 hover:scale-105 transform cursor-pointer transition-all flex items-center justify-center mr-2"
+                    >
+                      <img alt="" className="h-auto max-h-4 max-w-4 w-auto" src={action.icon}></img>
+                    </div>
+                  ))}
+                </div>
               </div>
+              <Collapse in={showInfoTaskId === task.id}>
+                <div className="flex">
+                  <div className="flex flex-grow text-center">
+                    <div className="w-3/12">youremail@gmail.com</div>
+                    <div className="w-6/12"></div>
+                    <div
+                      className={`${
+                        task.status === "running" ? "text-green" : "text-red-500"
+                      } capitalize w-3/12`}
+                    >
+                      <StatefullValue
+                        value={task.status}
+                        time={2000}
+                        loadValue={<span className="text-yellow-500">Submitting...</span>}
+                      ></StatefullValue>
+                    </div>
+                  </div>
+                  <div className="w-48"></div>
+                </div>
+                <div className="flex">
+                  <div className="flex flex-grow text-center">
+                    <div className="w-3/12">youremail@gmail.com</div>
+                    <div className="w-6/12"></div>
+                    <div
+                      className={`${
+                        task.status === "running" ? "text-green" : "text-red-500"
+                      } capitalize w-3/12`}
+                    >
+                      <StatefullValue
+                        value={task.status}
+                        time={2000}
+                        loadValue={<span className="text-yellow-500">Submitting...</span>}
+                      ></StatefullValue>
+                    </div>
+                  </div>
+                  <div className="w-48"></div>
+                </div>
+              </Collapse>
             </div>
           </div>
         ))}

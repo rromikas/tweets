@@ -87,10 +87,14 @@ const DiscordTaskForm = ({ onAddTask, onClose, currentChannel, initialTask, onEd
               <option value="" className="text-blue-900">
                 None
               </option>
-              {dashboards.map((x, i) => (
-                <option key={`d-opt-${i}`} value={x} className="text-blue-900">
-                  {x}
-                </option>
+              {Object.keys(dashboards).map((x, i) => (
+                <optgroup label={x} className="text-blue-900" key={`d-optgroup-${i}`}>
+                  {dashboards[x].map((d, j) => (
+                    <option key={`opt-${j}-d-${i}`} value={d} className="text-blue-900">
+                      {d}
+                    </option>
+                  ))}
+                </optgroup>
               ))}
             </Select>
           </div>

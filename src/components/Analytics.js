@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { AreaChart, ResponsiveContainer, Area } from "recharts";
+import {
+  AreaChart,
+  ResponsiveContainer,
+  Area,
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+} from "recharts";
 import SimpleBar from "simplebar-react";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
@@ -41,12 +51,46 @@ const Analytics = () => {
     { title: "ActiveCollab", keys: new Array(3).fill(0).map((x) => uuidv4()) },
   ];
 
-  const figures = [
-    { title: "Checkouts", value: 10 },
-    { title: "Failed Checkouts", value: 2 },
-    { title: "Tweets Caught", value: 159 },
-    { title: "Servers Joined", value: 8 },
-  ];
+  const [figures, setFigures] = useState([
+    {
+      title: "Checkouts",
+      values: [
+        { date: "26-02", value: 34 },
+        { date: "27-02", value: 56 },
+        { date: "28-02", value: 43 },
+        { date: "01-03", value: 100 },
+      ],
+    },
+    {
+      title: "Failed Checkouts",
+      values: [
+        { date: "26-02", value: 55 },
+        { date: "27-02", value: 3 },
+        { date: "28-02", value: 16 },
+        { date: "01-03", value: 66 },
+      ],
+    },
+    {
+      title: "Tweets Caught",
+      values: [
+        { date: "26-02", value: 34 },
+        { date: "27-02", value: 32 },
+        { date: "28-02", value: 10 },
+        { date: "01-03", value: 95 },
+      ],
+    },
+    {
+      title: "Servers Joined",
+      values: [
+        { date: "26-02", value: 4 },
+        { date: "27-02", value: 69 },
+        { date: "28-02", value: 67 },
+        { date: "01-03", value: 7 },
+      ],
+    },
+  ]);
+
+  const [cartToShowIndex, setCartToShowIndex] = useState(-1);
 
   const [chartData, setChartData] = useState([]);
   const [chartMode, setChartMode] = useState("week");
@@ -142,17 +186,50 @@ const Analytics = () => {
               <div className="flex flex-wrap justify-center pb-4 flex-grow items-center">
                 {figures.map((x, i) => (
                   <div
+                    onClick={() => setCartToShowIndex(cartToShowIndex === i ? -1 : i)}
                     key={`figure-${i}`}
-                    className="rounded-xl flex-none mb-4 mr-4 bg-cover bg-center w-56 bg-opacity-50 p-3"
+                    className="transform hover:scale-105 transition select-none cursor-pointer rounded-xl flex-none mb-4 mr-4 bg-cover bg-center w-56 bg-opacity-50 p-3 relative"
                     style={{ backgroundImage: `url(${CardImage})` }}
                   >
+                    {cartToShowIndex === i ? (
+                      <div
+                        style={{ transform: "translateX(-50%)" }}
+                        className="absolute bottom-full left-1/2 right-0 w-72 h-60 pb-5"
+                      >
+                        <div className="bg-blue-900 px-7 pb-7 pt-10 rounded-lg h-full">
+                          <ResponsiveContainer>
+                            <BarChart data={x.values} margin={{ left: 0 }}>
+                              <CartesianGrid
+                                strokeWidth={4}
+                                className="stroke-current text-blue-500 text-opacity-30"
+                                vertical={false}
+                              ></CartesianGrid>
+                              <Bar dataKey="value" fill="#4fff9e" radius={[6, 6, 6, 6]} />
+                              <YAxis
+                                width={40}
+                                tick={{ fill: "white", fontWeight: 600, fontSize: 14 }}
+                                axisLine={false}
+                                tickLine={false}
+                              />
+                              <XAxis
+                                axisLine={false}
+                                tickLine={false}
+                                tickMargin={10}
+                                dataKey="date"
+                                tick={{ fill: "white", fontSize: 14, fontWeight: 600 }}
+                              ></XAxis>
+                            </BarChart>
+                          </ResponsiveContainer>
+                        </div>
+                      </div>
+                    ) : null}
                     <div className="pt-7 text-xl mb-1 text-center">{x.title}</div>
                     <div
                       className={`${
-                        x.value < 5 ? "text-red-500" : "text-green"
+                        x.values[x.values.length - 1].value < 5 ? "text-red-500" : "text-green"
                       } text-4xl text-center`}
                     >
-                      {x.value}
+                      {x.values[x.values.length - 1].value}
                     </div>
                   </div>
                 ))}

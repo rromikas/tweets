@@ -84,6 +84,7 @@ const Profile = ({ profiles, setProfiles }) => {
                   <div className="flex items-center">
                     {actions.map((a, j) => (
                       <div
+                        key={`profile-${i}-action-${j}`}
                         onClick={a.onClick(i)}
                         className={` mr-${
                           j === 1 ? 0 : 1

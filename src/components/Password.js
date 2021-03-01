@@ -35,7 +35,7 @@ const Password = ({ onClose }) => {
 
   return (
     <div
-      className="fixed left-0 top-0 w-full h-full text-white font-bold w-full bg-blue-900 p-2"
+      className="fixed left-0 top-0 w-full h-full text-white font-bold w-full bg-blue-900 p-2 overflow-auto"
       onMouseDown={(e) => e.stopPropagation()}
     >
       <div className="p-8">

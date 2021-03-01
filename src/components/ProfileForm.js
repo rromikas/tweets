@@ -6,12 +6,11 @@ import Button from "components/Button";
 
 const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => {
   const formik = useFormik({
-    enableReinitialize: true,
     initialValues: initialData || {
       id: uuidv4(),
       discord_token: null,
       create: true,
-      profile_name: "Profile Name",
+      profile_name: "",
       first_name: "",
       last_name: "",
       email: "",
@@ -19,6 +18,7 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
       postal_code: "",
       exp_month: "",
       exp_year: "",
+      cvc: "",
     },
     onSubmit: (values, { resetForm }) => {
       if (values.create) {
@@ -40,8 +40,27 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
           {formik.values.create ? "Create Profile" : "Edit Profile"}
         </div>
         <form className="mx-auto" onSubmit={formik.handleSubmit}>
-          <div className="flex mb-3">
-            <div className="w-1/2 pr-2">
+          <div className="flex flex-wrap">
+            <div className="sm:w-1/3 w-full sm:pr-2 mb-3">
+              <div className="flex mb-2 items-center">
+                <div className="mr-3">Profile Name</div>
+                {formik.errors.profile_name && formik.touched.profile_name ? (
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
+                ) : null}
+              </div>
+              <input
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.profile_name}
+                className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
+                name="profile_name"
+              ></input>
+            </div>
+            <div className="sm:w-1/3 w-full sm:pr-2 sm:pl-2 mb-3">
               <div className="flex mb-2 items-center">
                 <div className="mr-3">First Name</div>
                 {formik.errors.first_name && formik.touched.first_name ? (
@@ -60,7 +79,7 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
                 name="first_name"
               ></input>
             </div>
-            <div className="w-1/2 pl-2">
+            <div className="sm:w-1/3 w-full sm:pl-2 mb-3">
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Last Name</div>
                 {formik.errors.last_name && formik.touched.last_name ? (

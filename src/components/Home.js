@@ -112,18 +112,20 @@ const Home = () => {
             <div className="text-green font-bold mb-3">{post.title}</div>
             <div className="flex justify-between items-center flex-wrap">
               <div className="mr-2 mb-2 font-medium">
-                {post.values.map((x, y) =>
-                  x.title ? (
-                    <div key={`post-${i}-val-${y}`} className="flex">
-                      <div className="mr-2 text-white capitalize">{x.title}</div>
-                      <div className="text-green">{x.value}</div>
-                    </div>
-                  ) : x.greenValue ? (
-                    <div className="text-green">{x.greenValue}</div>
-                  ) : (
-                    <div className="h-5 text-white">{x}</div>
-                  )
-                )}
+                {post.values.map((x, y) => (
+                  <div key={`post-${i}-val-${y}`}>
+                    {x.title ? (
+                      <div className="flex">
+                        <div className="mr-2 text-white capitalize">{x.title}</div>
+                        <div className="text-green">{x.value}</div>
+                      </div>
+                    ) : x.greenValue ? (
+                      <div className="text-green">{x.greenValue}</div>
+                    ) : (
+                      <div className="h-5 text-white">{x}</div>
+                    )}
+                  </div>
+                ))}
               </div>
               {post.source === "twitter" ? (
                 <div className="flex flex-wrap items-center">

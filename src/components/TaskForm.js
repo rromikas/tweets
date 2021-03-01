@@ -6,6 +6,8 @@ import { dashboards } from "enumerators";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Button from "components/Button";
+import MenuItem from "@material-ui/core/MenuItem";
+import Chip from "@material-ui/core/Chip";
 
 const IconComponent = () => {
   return (
@@ -15,7 +17,7 @@ const IconComponent = () => {
   );
 };
 
-const TaskForm = ({ profiles, onClose, addTask }) => {
+const TaskForm = ({ profiles, onClose, addTask, ...rest }) => {
   const { values, handleSubmit, setFieldValue, handleChange, errors, submitCount } = useFormik({
     onSubmit: (values, { resetForm }) => {
       addTask(values);
@@ -24,7 +26,7 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
     },
     initialValues: {
       socialNetwork: "twitter",
-      profileId: "",
+      profileIds: [],
       username: "",
       dashboard: "",
       baseUrl: "",
@@ -35,14 +37,14 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
     },
     validationSchema: Yup.object().shape({
       username: Yup.string().required("Required"),
-      profileId: Yup.string().required("Required"),
+      profileIds: Yup.array().test({ test: (val) => val.length > 0, message: "Required" }),
       dashboard: Yup.string().required("Required"),
       baseUrl: Yup.string().required("Required"),
     }),
   });
 
   return (
-    <div className="w-full h-full flex bg-blue-900 bg-opacity-50" onMouseDown={onClose}>
+    <div className="w-full h-full flex bg-blue-900 bg-opacity-50" onMouseDown={onClose} {...rest}>
       <form
         onSubmit={handleSubmit}
         className="text-white font-semibold m-auto bg-blue-900 rounded max-w-lg w-full px-16 py-6"
@@ -58,28 +60,40 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
         <div className="flex justify-between mb-1">
           <div>Profile Name</div>
           <div className="text-red-500">
-            {submitCount > 0 && errors.profileId ? errors.profileId : ""}
+            {submitCount > 0 && errors.profileIds ? errors.profileIds : ""}
           </div>
         </div>
         <Select
-          value={values.profileId}
-          IconComponent={IconComponent}
+          value={values.profileIds}
           disableUnderline
-          className="w-full mb-3"
-          native
-          classes={{
-            root:
-              "py-3.5 bg-blue-700 px-3 rounded-2xl text-white font-jost capitalize font-semibold",
+          IconComponent={IconComponent}
+          renderValue={(val) => (
+            <div className="px-3">
+              {val.map((x, i) => (
+                <Chip
+                  className="bg-blue-800 text-white font-jost font-medium mr-1.5"
+                  key={`profile-id-selected-${i}`}
+                  label={profiles.find((p) => p.id === x).profile_name}
+                ></Chip>
+              ))}
+            </div>
+          )}
+          style={{ minHeight: 46 }}
+          className="w-full bg-blue-700 rounded-2xl mb-3"
+          classes={{ root: "bg-transparent p-0" }}
+          multiple
+          MenuProps={{
+            getContentAnchorEl: null,
           }}
           onChange={(e) => {
-            setFieldValue("profileId", e.target.value);
+            console.log(e.target.value);
+            setFieldValue("profileIds", e.target.value);
           }}
         >
-          <option value={""} className="text-blue-900"></option>
-          {profiles.map((x, i) => (
-            <option key={`text-ch-${i}`} value={x.id} className="text-blue-900">
+          {profiles.map((x) => (
+            <MenuItem key={x.id} value={x.id}>
               {x.profile_name}
-            </option>
+            </MenuItem>
           ))}
         </Select>
         <div className="flex justify-between mb-1">
@@ -118,11 +132,17 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
             setFieldValue("dashboard", e.target.value);
           }}
         >
-          <option value="" className="text-blue-900"></option>
-          {dashboards.map((x, i) => (
-            <option key={`text-ch-${i}`} value={x} className="text-blue-900">
-              {x}
-            </option>
+          <option value="" className="text-blue-900">
+            None
+          </option>
+          {Object.keys(dashboards).map((x, i) => (
+            <optgroup label={x} className="text-blue-900" key={`d-optgroup-${i}`}>
+              {dashboards[x].map((d, j) => (
+                <option key={`opt-${j}-d-${i}`} value={d} className="text-blue-900">
+                  {d}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </Select>
         {values.socialNetwork === "twitter" ? (
