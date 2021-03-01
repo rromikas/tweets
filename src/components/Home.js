@@ -147,7 +147,11 @@ const Home = () => {
                 key={`bottom-panel-btn-${i}`}
                 className="outline-none mr-2 bg-blue-700 font-semibold hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
               >
-                <img src={action.icon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
+                <img
+                  alt={action.title}
+                  src={action.icon}
+                  className="mr-3 max-w-4 max-h-4 h-auto w-auto"
+                ></img>
                 <div className="whitespace-nowrap">{action.title}</div>
               </ButtonBase>
             ))}

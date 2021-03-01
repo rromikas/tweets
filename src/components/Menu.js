@@ -30,7 +30,7 @@ const Menu = ({ page, setPage, closeMenu = () => {} }) => {
             page !== i ? "hover:bg-blue-600" : "bg-blue-600"
           } rounded-2xl px-4 py-3.5 mb-2 transition cursor-pointer outline-none justify-start w-52 font-bold`}
         >
-          <img width={20} src={x.icon} className="mr-3"></img>
+          <img alt={x.title} width={20} src={x.icon} className="mr-3"></img>
           <div>{x.title}</div>
         </ButtonBase>
       ))}

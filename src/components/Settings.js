@@ -22,7 +22,6 @@ const Settings = ({ profiles, setProfiles }) => {
 
   const [discordWebhook, setDiscordWebhook] = useState("");
   const [twitterAccount, setTwitterAcount] = useState(null);
-  const [customSound, setCustomSound] = useState(null);
 
   const [openedModalIndex, setOpenedModalIndex] = useState(-1);
   const [twitterDevKeys, setTwitterDevKeys] = useState({
@@ -149,6 +148,8 @@ const Settings = ({ profiles, setProfiles }) => {
                 <div className="mb-1">Discord Webhook</div>
                 <div className="p-3 bg-blue-700 rounded">
                   <input
+                    value={discordWebhook}
+                    onChange={(e) => setDiscordWebhook(e.target.value)}
                     spellCheck={false}
                     type="text"
                     className="w-full outline-none bg-blue-900 mb-3 py-1.5 px-4 rounded-xl"

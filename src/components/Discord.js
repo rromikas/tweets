@@ -20,7 +20,7 @@ const Button = ({ primary = true, ...rest }) => {
 };
 
 const Discord = () => {
-  const [users, setUsers] = useState([
+  const users = [
     { user_photo: UserPhoto },
     { user_photo: UserPhoto },
     { user_photo: UserPhoto },
@@ -33,7 +33,7 @@ const Discord = () => {
     { user_photo: UserPhoto },
     { user_photo: UserPhoto },
     { user_photo: UserPhoto },
-  ]);
+  ];
 
   const [channels, setChannels] = useState([
     {

@@ -6,7 +6,12 @@ const Navbar = ({ toggleMenu }) => {
   return (
     <div className="h-14 flex justify-between pl-7 pr-24 items-center">
       <Logo></Logo>
-      <img onClick={toggleMenu} className="block md:hidden cursor-pointer" src={MenuIcon}></img>
+      <img
+        alt="menu"
+        onClick={toggleMenu}
+        className="block md:hidden cursor-pointer"
+        src={MenuIcon}
+      ></img>
     </div>
   );
 };

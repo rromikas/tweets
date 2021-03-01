@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { render } from "react-dom";
 
 const StatefullValue = ({ value, loadValue, time }) => {
   const [renderValue, setRenderValue] = useState("");
@@ -19,8 +18,8 @@ const StatefullValue = ({ value, loadValue, time }) => {
         clearTimeout(timeout);
       }
     };
-  }, [value]);
-  console.log("render value", renderValue);
+  }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return renderValue;
 };
 

@@ -8,7 +8,7 @@ import ArrowDown from "assets/ArrowDown.png";
 const IconComponent = () => {
   return (
     <div className="absolute right-3 w-4 top-0 bottom-0 my-auto h-7">
-      <img src={ArrowDown}></img>
+      <img alt="expand" src={ArrowDown}></img>
     </div>
   );
 };

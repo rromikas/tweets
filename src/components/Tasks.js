@@ -294,7 +294,7 @@ const Tasks = ({ profiles }) => {
                     onClick={action.onClick(i)}
                     className="rounded w-7 h-7 p-1.5 active:bg-blue-800 bg-blue-800 active hover:bg-blue-900 hover:scale-105 transform cursor-pointer transition-all flex items-center justify-center mr-2"
                   >
-                    <img className="h-auto max-h-4 max-w-4 w-auto" src={action.icon}></img>
+                    <img alt="" className="h-auto max-h-4 max-w-4 w-auto" src={action.icon}></img>
                   </div>
                 ))}
               </div>
@@ -311,7 +311,11 @@ const Tasks = ({ profiles }) => {
                 key={`bottom-panel-btn-${i}`}
                 className="outline-none mr-2 font-semibold bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
               >
-                <img src={action.icon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
+                <img
+                  alt={action.title}
+                  src={action.icon}
+                  className="mr-3 max-w-4 max-h-4 h-auto w-auto"
+                ></img>
                 <div className="whitespace-nowrap">{action.title}</div>
               </ButtonBase>
             ))}

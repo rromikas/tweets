@@ -16,13 +16,13 @@ const Toolbar = ({ onClose = () => {}, onPopout = () => {}, onMinimize = () => {
   return (
     <div className="flex items-center">
       <ToolbarIcon onClick={onMinimize} className="mr-2">
-        <img src={MinimizeIcon}></img>
+        <img alt="minimize" src={MinimizeIcon}></img>
       </ToolbarIcon>
       <ToolbarIcon onClick={onPopout} className="mr-2">
-        <img src={PopoutIcon}></img>
+        <img alt="popout" src={PopoutIcon}></img>
       </ToolbarIcon>
       <ToolbarIcon onClick={onClose}>
-        <img src={CloseIcon}></img>
+        <img alt="close" src={CloseIcon}></img>
       </ToolbarIcon>
     </div>
   );

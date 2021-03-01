@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import WarningIcon from "assets/Warning.png";
 import { v4 as uuidv4 } from "uuid";
@@ -45,7 +45,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               <div className="flex mb-2 items-center">
                 <div className="mr-3">First Name</div>
                 {formik.errors.first_name && formik.touched.first_name ? (
-                  <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
                 ) : null}
               </div>
               <input
@@ -60,7 +64,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Last Name</div>
                 {formik.errors.last_name && formik.touched.last_name ? (
-                  <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
                 ) : null}
               </div>
               <input
@@ -76,7 +84,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
             <div className="flex mb-2 items-center">
               <div className="mr-3">Email</div>
               {formik.errors.email && formik.touched.email ? (
-                <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                <img
+                  alt="required"
+                  src={WarningIcon}
+                  className="max-w-5 max-h-5 w-auto h-auto"
+                ></img>
               ) : null}
             </div>
             <input
@@ -92,7 +104,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Credit Card</div>
                 {formik.errors.card_number && formik.touched.card_number ? (
-                  <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
                 ) : null}
               </div>
               <input
@@ -107,7 +123,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Postal Code</div>
                 {formik.errors.postal_code && formik.touched.postal_code ? (
-                  <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
                 ) : null}
               </div>
               <input
@@ -124,7 +144,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Month</div>
                 {formik.errors.exp_month && formik.touched.exp_month ? (
-                  <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
                 ) : null}
               </div>
               <input
@@ -139,7 +163,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Year</div>
                 {formik.errors.exp_year && formik.touched.exp_year ? (
-                  <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
                 ) : null}
               </div>
               <input
@@ -154,7 +182,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               <div className="flex mb-2 items-center">
                 <div className="mr-3">CVC</div>
                 {formik.errors.cvc && formik.touched.cvc ? (
-                  <img src={WarningIcon} className="max-w-5 max-h-5 w-auto h-auto"></img>
+                  <img
+                    alt="required"
+                    src={WarningIcon}
+                    className="max-w-5 max-h-5 w-auto h-auto"
+                  ></img>
                 ) : null}
               </div>
               <input

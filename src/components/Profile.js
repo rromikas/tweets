@@ -89,7 +89,7 @@ const Profile = ({ profiles, setProfiles }) => {
                           j === 1 ? 0 : 1
                         } rounded w-7 h-7 p-1.5 active:bg-blue-800 bg-blue-800 active hover:bg-blue-900 hover:scale-105 transform cursor-pointer transition-all flex items-center justify-center`}
                       >
-                        <img className="h-auto max-h-4 max-w-4 w-auto" src={a.icon}></img>
+                        <img alt="" className="h-auto max-h-4 max-w-4 w-auto" src={a.icon}></img>
                       </div>
                     ))}
                   </div>
@@ -109,7 +109,7 @@ const Profile = ({ profiles, setProfiles }) => {
               }}
               className="active:bg-blue-700 mr-2 bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
             >
-              <img src={EditIcon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
+              <img alt="edit" src={EditIcon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
               <div className="whitespace-nowrap">Create Profile</div>
             </div>
           </div>

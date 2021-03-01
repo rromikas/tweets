@@ -17,7 +17,9 @@ const Checkbox = ({ checked, onClick, className }) => {
       onClick={() => onClick(checked)}
       className={`cursor-pointer select-none w-7 h-7 bg-blue-700 rounded flex items-center justify-center flex-shrink-0 ${className}`}
     >
-      {checked ? <img className="max-w-3 max-h-3 w-auto h-auto" src={CheckIcon}></img> : null}
+      {checked ? (
+        <img alt="select" className="max-w-3 max-h-3 w-auto h-auto" src={CheckIcon}></img>
+      ) : null}
     </div>
   );
 };

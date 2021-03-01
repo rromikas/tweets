@@ -63,6 +63,8 @@ const Analytics = () => {
       case "all-time":
         setChartData(data.filter((x, i) => i % 120 === 0));
         break;
+      default:
+        break;
     }
   }, [chartMode]);
 

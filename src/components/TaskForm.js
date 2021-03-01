@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Select from "@material-ui/core/Select";
 import ArrowDown from "assets/ArrowDown.png";
 import Checkbox from "components/Checkbox";
@@ -10,7 +10,7 @@ import Button from "components/Button";
 const IconComponent = () => {
   return (
     <div className="absolute right-3 w-4 top-0 bottom-0 my-auto h-7">
-      <img src={ArrowDown}></img>
+      <img alt="expand" src={ArrowDown}></img>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import "simplebar/dist/simplebar.min.css";
 import Navbar from "components/Navbar";
 import Menu from "components/Menu";
@@ -11,13 +11,11 @@ import { SizeMe } from "react-sizeme";
 import Toolbox from "components/Toolbox";
 import Toolbar from "components/Toolbar";
 import Background from "components/Background";
-
-const Tasks = React.lazy(() => import("components/Tasks"));
-const Discord = React.lazy(() => import("components/Discord"));
-const Settings = React.lazy(() => import("components/Settings"));
-const Analytics = React.lazy(() => import("components/Analytics"));
-const Profile = React.lazy(() => import("components/Profile"));
-// const Background = React.lazy(() => import("components/Background"));
+import Tasks from "components/Tasks";
+import Discord from "components/Discord";
+import Settings from "components/Settings";
+import Analytics from "components/Analytics";
+import Profile from "components/Profile";
 
 const RenderPage = (pageIndex, props) => {
   const { user, onLogin, profiles, setProfiles } = props;
@@ -34,6 +32,8 @@ const RenderPage = (pageIndex, props) => {
       return <Settings profiles={profiles} setProfiles={setProfiles}></Settings>;
     case 5:
       return <Analytics></Analytics>;
+    default:
+      return <Home></Home>;
   }
 };
 
