@@ -7,6 +7,7 @@ import Clock from "components/Clock";
 import PasswordPopup from "components/Password";
 import Modal from "@material-ui/core/Modal";
 import ImageViewer from "components/ImageViewer";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const Home = () => {
   const [passwordPopupOpened, setPasswordPopupOpened] = useState(false);
@@ -14,38 +15,50 @@ const Home = () => {
   const [posts, setPosts] = useState([
     {
       title: "Succesfully Checked Out! Check your email!",
-      values: {
-        website: "https://dashboard.tweet-catcher.com",
-        email: "youemail@gmail.com",
-        key: "7NVX-AWE1-BNA1-98BX",
-      },
+      values: [
+        { title: "Website:", value: "https://dashboard.tweet-catcher.com" },
+        { title: "Email:", value: "youemail@gmail.com" },
+        { title: "Key:", value: "7NVX-AWE1-BNA1-98BX" },
+      ],
       source: "admin",
     },
     {
       title: "Instagram Post Detected (@username)",
-      values: {
-        "OCR Result from post": "Announcement: We’re stocking soon. Stay tuned!",
-      },
+      values: [
+        { title: "OCR Result from post:", value: "" },
+        "",
+        { greenValue: "Announcement: We’re stocking soon. Stay tuned!" },
+      ],
       source: "instagram",
     },
 
     {
       title: "Staff Message Received",
-      values: {
-        message:
-          "Hello Users! @username is restocking soon! Check the channel guide in the Discord",
-      },
+      values: [
+        {
+          title: "Message:",
+          value: "Hello Users! @username is restocking soon!",
+        },
+        { greenValue: "Check the channel guide in the Discord" },
+      ],
       source: "admin",
     },
     {
       title: "@lushythedev via  Twitter",
-      values: {
-        url: "https://dashboard.tweet-catcher.com/purchase?password=",
-        password: "RESTOCK2021!!!",
-      },
+      values: [
+        "https://dashboard.tweet-catcher.com/purchase?password=",
+        "",
+        { title: "password", value: "RESTOCK2021!!!" },
+      ],
       source: "twitter",
     },
   ]);
+
+  const twitterActions = [
+    { title: "Retweet", onClick: () => {} },
+    { title: "Like", onClick: () => {} },
+    { title: "Link", onClick: () => {} },
+  ];
 
   const generalActions = [
     {
@@ -94,27 +107,49 @@ const Home = () => {
         {posts.map((post, i) => (
           <div key={`post-${i}`} className="bg-blue-700 rounded-xl mb-2 p-4">
             <div className="text-green font-bold mb-3">{post.title}</div>
-            {Object.keys(post.values).map((key, y) => (
-              <div key={`post-${i}-val-${y}`} className="flex">
-                <div className="mr-2 text-white capitalize">{key}:</div>
-                <div className="text-green">{post.values[key]}</div>
+            <div className="flex justify-between items-center flex-wrap">
+              <div className="mr-2 mb-2 font-medium">
+                {post.values.map((x, y) =>
+                  x.title ? (
+                    <div key={`post-${i}-val-${y}`} className="flex">
+                      <div className="mr-2 text-white capitalize">{x.title}</div>
+                      <div className="text-green">{x.value}</div>
+                    </div>
+                  ) : x.greenValue ? (
+                    <div className="text-green">{x.greenValue}</div>
+                  ) : (
+                    <div className="h-5 text-white">{x}</div>
+                  )
+                )}
               </div>
-            ))}
+              {post.source === "twitter" ? (
+                <div className="flex flex-wrap items-center">
+                  {twitterActions.map((x, j) => (
+                    <ButtonBase
+                      key={`action-${j}}-post-${i}`}
+                      className="bg-blue-800 w-28 mb-2 hover:bg-blue-1000 outline-none transition rounded text-center py-1 text-white font-semibold mx-1"
+                    >
+                      {x.title}
+                    </ButtonBase>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </div>
         ))}
       </SimpleBar>
       <SimpleBar className="pb-4">
         <div style={{ minWidth: 740 }} className="flex items-center px-5 text-white">
-          <div className="flex select-none font-semibold text-sm">
+          <div className="flex select-none text-sm">
             {generalActions.map((action, i) => (
-              <div
+              <ButtonBase
                 onClick={action.onClick}
                 key={`bottom-panel-btn-${i}`}
-                className="active:bg-blue-700 mr-2 bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
+                className="outline-none mr-2 bg-blue-700 font-semibold hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
               >
                 <img src={action.icon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
                 <div className="whitespace-nowrap">{action.title}</div>
-              </div>
+              </ButtonBase>
             ))}
           </div>
           <div className="flex-grow">

@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { AreaChart, ResponsiveContainer, Area } from "recharts";
 import SimpleBar from "simplebar-react";
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import CardImage from "assets/Card.svg";
 import { SizeMe } from "react-sizeme";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const Button = ({ className = "", ...rest }) => {
   return (
-    <div
+    <ButtonBase
       {...rest}
-      className={`${className} capitalize w-20 text-sm text-center py-1 rounded bg-blue-500 mb-2 hover:bg-blue-501 active:bg-blue-502 transition cursor-pointer select-none`}
-    ></div>
+      className={`${className} block font-bold outline-none capitalize w-20 text-sm text-center py-1 rounded bg-blue-500 mb-2 hover:bg-blue-501 active:bg-blue-502 transition cursor-pointer select-none`}
+    ></ButtonBase>
   );
 };
 
@@ -30,14 +31,14 @@ const data = ((startDate, endDate) => {
 
 const Analytics = () => {
   const keys = [
-    { title: "Kage AIO", keys: new Array(8).fill(0).map((x) => uuid()) },
-    { title: "Koi", keys: new Array(2).fill(0).map((x) => uuid()) },
-    { title: "Nebula", keys: new Array(7).fill(0).map((x) => uuid()) },
-    { title: "Phoenix AIO", keys: new Array(4).fill(0).map((x) => uuid()) },
-    { title: "TweetNinja", keys: new Array(1).fill(0).map((x) => uuid()) },
-    { title: "Viper", keys: new Array(8).fill(0).map((x) => uuid()) },
-    { title: "ZonosLabs", keys: new Array(8).fill(0).map((x) => uuid()) },
-    { title: "ActiveCollab", keys: new Array(3).fill(0).map((x) => uuid()) },
+    { title: "Kage AIO", keys: new Array(8).fill(0).map((x) => uuidv4()) },
+    { title: "Koi", keys: new Array(2).fill(0).map((x) => uuidv4()) },
+    { title: "Nebula", keys: new Array(7).fill(0).map((x) => uuidv4()) },
+    { title: "Phoenix AIO", keys: new Array(4).fill(0).map((x) => uuidv4()) },
+    { title: "TweetNinja", keys: new Array(1).fill(0).map((x) => uuidv4()) },
+    { title: "Viper", keys: new Array(8).fill(0).map((x) => uuidv4()) },
+    { title: "ZonosLabs", keys: new Array(8).fill(0).map((x) => uuidv4()) },
+    { title: "ActiveCollab", keys: new Array(3).fill(0).map((x) => uuidv4()) },
   ];
 
   const figures = [
@@ -96,7 +97,11 @@ const Analytics = () => {
                   <div className="h-80 relative bg-blue-900 rounded pt-14 flex flex-col overflow-hidden mb-1">
                     <div className="absolute top-4 left-4 z-10">
                       {modes.map((x) => (
-                        <Button key={`mode-${x}`} onClick={() => setChartMode(x)}>
+                        <Button
+                          className="font-bold"
+                          key={`mode-${x}`}
+                          onClick={() => setChartMode(x)}
+                        >
                           {x}
                         </Button>
                       ))}

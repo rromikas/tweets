@@ -11,6 +11,8 @@ import Modal from "@material-ui/core/Modal";
 import TaskForm from "components/TaskForm";
 import { dashboards } from "enumerators";
 import StatefullValue from "components/StatefullValue";
+import ButtonBase from "@material-ui/core/ButtonBase";
+import { v4 as uuidv4 } from "uuid";
 
 const Tasks = ({ profiles }) => {
   const [tasks, setTasks] = useState([
@@ -24,6 +26,7 @@ const Tasks = ({ profiles }) => {
       profileId: profiles[0].id,
       dasboard: dashboards[6],
       socialNetwork: "twitter",
+      id: uuidv4(),
     },
     {
       username: "lushythedev",
@@ -35,6 +38,7 @@ const Tasks = ({ profiles }) => {
       profileId: profiles[0].id,
       dasboard: dashboards[7],
       socialNetwork: "instagram",
+      id: uuidv4(),
     },
     {
       username: "lushythedev",
@@ -46,6 +50,7 @@ const Tasks = ({ profiles }) => {
       profileId: profiles[1].id,
       dasboard: dashboards[8],
       socialNetwork: "twitter",
+      id: uuidv4(),
     },
     {
       username: "lushythedev",
@@ -57,6 +62,7 @@ const Tasks = ({ profiles }) => {
       profileId: profiles[0].id,
       dasboard: dashboards[4],
       socialNetwork: "instagram",
+      id: uuidv4(),
     },
     {
       username: "lushythedev",
@@ -68,6 +74,7 @@ const Tasks = ({ profiles }) => {
       profileId: profiles[1].id,
       dasboard: dashboards[1],
       socialNetwork: "twitter",
+      id: uuidv4(),
     },
     {
       username: "lushythedev",
@@ -79,8 +86,10 @@ const Tasks = ({ profiles }) => {
       profileId: profiles[0].id,
       dasboard: dashboards[0],
       socialNetwork: "instagram",
+      id: uuidv4(),
     },
     {
+      id: uuidv4(),
       username: "lushythedev",
       privateAccMode: false,
       baseUrl: "",
@@ -92,6 +101,7 @@ const Tasks = ({ profiles }) => {
       socialNetwork: "twitter",
     },
     {
+      id: uuidv4(),
       username: "lushythedev",
       privateAccMode: false,
       baseUrl: "",
@@ -103,6 +113,7 @@ const Tasks = ({ profiles }) => {
       socialNetwork: "instagram",
     },
     {
+      id: uuidv4(),
       username: "lushythedev",
       privateAccMode: false,
       baseUrl: "",
@@ -114,6 +125,7 @@ const Tasks = ({ profiles }) => {
       socialNetwork: "twitter",
     },
     {
+      id: uuidv4(),
       username: "lushythedev",
       privateAccMode: false,
       baseUrl: "",
@@ -125,6 +137,7 @@ const Tasks = ({ profiles }) => {
       socialNetwork: "instagram",
     },
     {
+      id: uuidv4(),
       username: "lushythedev",
       privateAccMode: false,
       baseUrl: "",
@@ -136,6 +149,7 @@ const Tasks = ({ profiles }) => {
       socialNetwork: "twitter",
     },
     {
+      id: uuidv4(),
       username: "lushythedev",
       privateAccMode: false,
       baseUrl: "",
@@ -220,7 +234,7 @@ const Tasks = ({ profiles }) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col text-white font-semibold">
+    <div className="w-full h-full flex flex-col text-white font-medium">
       <div className="text-center mb-2 font-bold">Manage Your Tasks</div>
       <Modal
         classes={{ root: "bg-blue-500 bg-opacity-0" }}
@@ -251,7 +265,7 @@ const Tasks = ({ profiles }) => {
       </SimpleBar>
       <SimpleBar ref={bodyRef} className="flex-grow h-0 ml-5 mr-1 mb-4 pr-4">
         {tasks.map((task, i) => (
-          <div style={{ minWidth: 700 }} key={`task-${i}`}>
+          <div style={{ minWidth: 700 }} key={`task-${task.id}`}>
             <div className="flex bg-blue-700 mb-2 rounded py-2" key={`task-${i}`}>
               <div className="flex flex-grow text-center">
                 <div className="w-3/12">{task.username}</div>
@@ -290,16 +304,16 @@ const Tasks = ({ profiles }) => {
       </SimpleBar>
       <SimpleBar className="pb-4">
         <div style={{ minWidth: 870 }} className="flex items-center px-5">
-          <div className="flex select-none font-semibold text-sm">
+          <div className="flex select-none text-sm">
             {generalActions.map((action, i) => (
-              <div
+              <ButtonBase
                 onClick={action.onClick}
                 key={`bottom-panel-btn-${i}`}
-                className="active:bg-blue-700 mr-2 bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
+                className="outline-none mr-2 font-semibold bg-blue-700 hover:bg-blue-600 rounded-2xl px-4 py-3 transition cursor-pointer flex items-center"
               >
                 <img src={action.icon} className="mr-3 max-w-4 max-h-4 h-auto w-auto"></img>
                 <div className="whitespace-nowrap">{action.title}</div>
-              </div>
+              </ButtonBase>
             ))}
           </div>
           <div className="flex-grow">

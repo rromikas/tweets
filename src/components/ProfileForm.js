@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 import WarningIcon from "assets/Warning.png";
 import { v4 as uuidv4 } from "uuid";
+import Button from "components/Button";
 
 const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => {
   const formik = useFormik({
@@ -118,7 +119,7 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               ></input>
             </div>
           </div>
-          <div className="flex mb-16">
+          <div className="flex mb-12">
             <div className="w-1/3 pr-2">
               <div className="flex mb-2 items-center">
                 <div className="mr-3">Month</div>
@@ -165,16 +166,11 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
               ></input>
             </div>
           </div>
-          <div className="flex justify-center select-none">
-            <div className="active:bg-blue-502 mr-2 bg-blue-500 hover:bg-blue-501 rounded-2xl px-12 text-xl py-3 transition cursor-pointer">
-              Discord
-            </div>
-            <button
-              type="submit"
-              className="font-semibold outline-none active:bg-blue-502 mr-2 bg-blue-500 hover:bg-blue-501 rounded-2xl px-12 text-xl py-3 transition cursor-pointer"
-            >
+          <div className="flex justify-center select-none mb-4">
+            <Button className="text-xl h-11 w-44 mx-1">Discord</Button>
+            <Button className="text-xl h-11 w-44 mx-1" type="submit">
               {formik.values.create ? "Create" : "Save"}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

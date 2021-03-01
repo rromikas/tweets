@@ -5,6 +5,7 @@ import ProfileIcon from "assets/Profile.png";
 import DiscordIcon from "assets/Discord.png";
 import SettingsIcon from "assets/Settings.png";
 import AnalyticsIcon from "assets/Analytics.png";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const items = [
   { title: "Home", icon: HomeIcon },
@@ -17,9 +18,9 @@ const items = [
 
 const Menu = ({ page, setPage, closeMenu = () => {} }) => {
   return (
-    <div className="text-white font-bold px-4">
+    <div className="text-white font-bold px-4 select-none">
       {items.map((x, i) => (
-        <div
+        <ButtonBase
           onClick={() => {
             setPage(i);
             closeMenu();
@@ -27,11 +28,11 @@ const Menu = ({ page, setPage, closeMenu = () => {} }) => {
           key={`menu-item-${i}`}
           className={`flex items-center ${
             page !== i ? "hover:bg-blue-600" : "bg-blue-600"
-          } rounded-2xl px-4 py-3.5 mb-2 transition cursor-pointer w-52`}
+          } rounded-2xl px-4 py-3.5 mb-2 transition cursor-pointer outline-none justify-start w-52 font-bold`}
         >
           <img width={20} src={x.icon} className="mr-3"></img>
           <div>{x.title}</div>
-        </div>
+        </ButtonBase>
       ))}
     </div>
   );

@@ -10,13 +10,14 @@ import Simplebar from "simplebar-react";
 import { SizeMe } from "react-sizeme";
 import Toolbox from "components/Toolbox";
 import Toolbar from "components/Toolbar";
+import Background from "components/Background";
 
 const Tasks = React.lazy(() => import("components/Tasks"));
 const Discord = React.lazy(() => import("components/Discord"));
 const Settings = React.lazy(() => import("components/Settings"));
 const Analytics = React.lazy(() => import("components/Analytics"));
 const Profile = React.lazy(() => import("components/Profile"));
-const Background = React.lazy(() => import("components/Background"));
+// const Background = React.lazy(() => import("components/Background"));
 
 const RenderPage = (pageIndex, props) => {
   const { user, onLogin, profiles, setProfiles } = props;
@@ -66,7 +67,7 @@ const App = () => {
       discord_token: null,
     },
   ]);
-  const [fullScreen, setFullScreen] = useState(true);
+  const [fullScreen, setFullScreen] = useState(false);
 
   const onLogin = () => setUser(true);
   const pageProps = { user, onLogin, profiles, setProfiles };

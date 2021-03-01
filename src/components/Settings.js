@@ -6,19 +6,8 @@ import TwitterLoginForm from "components/TwitterLoginForm";
 import AddDiscordTokensForm from "components/AddDiscordTokensForm";
 import AddTwitterDevKeysForm from "components/AddTwitterDevKeysForm";
 import StatefullValue from "components/StatefullValue";
+import Button from "components/Button";
 
-const Button = ({ primary = true, className = "", ...rest }) => {
-  return (
-    <div
-      {...rest}
-      className={`py-2 w-36 text-center select-none rounded-xl font-bold ${
-        primary
-          ? "bg-blue-500 hover:bg-blue-501 active:bg-blue-502"
-          : "bg-red-500 hover:bg-red-501 active:bg-red-502"
-      }  transition cursor-pointer ${className}`}
-    ></div>
-  );
-};
 const Settings = ({ profiles, setProfiles }) => {
   const [generalSettings, setGeneralSettings] = useState({
     link_opener: true,
