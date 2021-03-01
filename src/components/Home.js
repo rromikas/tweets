@@ -5,9 +5,9 @@ import TrashIcon from "assets/Trash.png";
 import PasswordIcon from "assets/Password.png";
 import Clock from "components/Clock";
 import PasswordPopup from "components/Password";
-import Modal from "@material-ui/core/Modal";
 import ImageViewer from "components/ImageViewer";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import NewWindow from "react-new-window";
 
 const Home = () => {
   const [passwordPopupOpened, setPasswordPopupOpened] = useState(false);
@@ -87,22 +87,25 @@ const Home = () => {
   return (
     <div className="w-full h-full flex flex-col">
       <div className="text-center text-white font-bold">Post Feed</div>
-      <Modal
-        classes={{ root: "bg-blue-500 bg-opacity-0" }}
-        open={passwordPopupOpened}
-        onClose={() => setPasswordPopupOpened(false)}
-        hideBackdrop
-      >
-        <PasswordPopup onClose={() => setPasswordPopupOpened(false)}></PasswordPopup>
-      </Modal>
-      <Modal
-        classes={{ root: "bg-blue-500 bg-opacity-0" }}
-        open={imageViewerOpened}
-        onClose={() => setImageViwerOpened(false)}
-        hideBackdrop
-      >
-        <ImageViewer onClose={() => setImageViwerOpened(false)}></ImageViewer>
-      </Modal>
+      {passwordPopupOpened ? (
+        <NewWindow
+          copyStyles
+          features={{ width: 650, height: 396 }}
+          onUnload={() => setPasswordPopupOpened(false)}
+        >
+          <PasswordPopup onClose={() => setPasswordPopupOpened(false)}></PasswordPopup>
+        </NewWindow>
+      ) : null}
+
+      {imageViewerOpened ? (
+        <NewWindow
+          features={{ width: 512, height: 430 }}
+          onUnload={() => setImageViwerOpened(false)}
+        >
+          <ImageViewer onClose={() => setImageViwerOpened(false)}></ImageViewer>
+        </NewWindow>
+      ) : null}
+
       <SimpleBar className="flex-grow h-0 ml-5 mr-1 mb-4 pr-4">
         {posts.map((post, i) => (
           <div key={`post-${i}`} className="bg-blue-700 rounded-xl mb-2 p-4">
