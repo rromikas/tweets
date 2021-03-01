@@ -55,7 +55,7 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
           <Button onClick={() => setFieldValue("socialNetwork", "twitter")}>Twitter</Button>
           <Button onClick={() => setFieldValue("socialNetwork", "instagram")}>Instagram</Button>
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-1">
           <div>Profile Name</div>
           <div className="text-red-500">
             {submitCount > 0 && errors.profileId ? errors.profileId : ""}
@@ -82,7 +82,7 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
             </option>
           ))}
         </Select>
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-1">
           <div>
             <span className="capitalize">{values.socialNetwork}</span> Username
           </div>
@@ -98,7 +98,7 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
           onChange={handleChange}
           className="bg-blue-700 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4 mb-3"
         ></input>
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-1">
           <div>Dashboard</div>
           <div className="text-red-500">
             {submitCount > 0 && errors.dashboard ? errors.dashboard : ""}
@@ -145,7 +145,7 @@ const TaskForm = ({ profiles, onClose, addTask }) => {
             </div>
           </div>
         ) : null}
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-1">
           <div>Base URL</div>
           <div className="text-red-500">
             {submitCount > 0 && errors.baseUrl ? errors.baseUrl : ""}

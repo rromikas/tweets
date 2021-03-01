@@ -4,6 +4,7 @@ import UserPhoto from "assets/Photo.png";
 import { SizeMe } from "react-sizeme";
 import Select from "@material-ui/core/Select";
 import moment from "moment";
+import Modal from "@material-ui/core/Modal";
 
 const Button = ({ primary = true, ...rest }) => {
   return (
@@ -135,6 +136,7 @@ const Discord = () => {
   return (
     <div className="w-full h-full flex flex-col text-white font-bold">
       <div className="text-center mb-2 font-bold">Discord</div>
+
       <div className="flex-grow h-0 bg-blue-700 mx-6 mb-6 rounded overflow-hidden">
         <div className="flex h-full">
           <SimpleBar className="w-24 flex-shrink-0 lg:mr-4">

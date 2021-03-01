@@ -100,17 +100,17 @@ const Password = ({ onClose }) => {
           </div>
           <div className="h-2 rounded-2xl bg-green mx-7 mb-6"></div>
           <div className="flex justify-center flex-wrap">
-            <div className="flex items-center mx-2">
+            <div className="flex items-center mx-2 mb-2">
               <Checkbox
                 checked={data.clipboardReader}
                 onClick={(prevVal) => setData((prev) => ({ ...prev, clipboardReader: !prevVal }))}
-                className="mr-2 mb-2"
+                className="mr-2"
               ></Checkbox>
               <div>Clipboard Reader</div>
             </div>
-            <div className="flex items-center mx-2">
+            <div className="flex items-center mx-2 mb-2">
               <Checkbox
-                className="mr-2 mb-2"
+                className="mr-2"
                 checked={data.alwaysOnTop}
                 onClick={(prevVal) => setData((prev) => ({ ...prev, alwaysOnTop: !prevVal }))}
               ></Checkbox>

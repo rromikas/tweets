@@ -30,7 +30,7 @@ const RenderPage = (pageIndex, props) => {
     case 3:
       return user ? <Discord></Discord> : <DiscordAuth onLogin={onLogin}></DiscordAuth>;
     case 4:
-      return <Settings></Settings>;
+      return <Settings profiles={profiles} setProfiles={setProfiles}></Settings>;
     case 5:
       return <Analytics></Analytics>;
   }
@@ -51,6 +51,7 @@ const App = () => {
       exp_month: 6,
       exp_year: 2023,
       postal_code: 12321,
+      discord_token: null,
     },
     {
       id: uuidv4(),
@@ -62,6 +63,7 @@ const App = () => {
       exp_month: 6,
       exp_year: 3000,
       postal_code: 12321,
+      discord_token: null,
     },
   ]);
   const [fullScreen, setFullScreen] = useState(true);
@@ -75,7 +77,7 @@ const App = () => {
         <Background></Background>
       </React.Suspense>
       <div
-        className={`fixed left-0 top-0 right-0 bottom-0 bg-blue-700 flex flex-col z-10 ${
+        className={`fixed transition-all left-0 top-0 right-0 bottom-0 bg-blue-700 flex flex-col z-10 ${
           fullScreen ? "" : "m-5 rounded-xl"
         }`}
       >

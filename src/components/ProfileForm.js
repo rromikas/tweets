@@ -8,6 +8,7 @@ const ProfileForm = ({ onClose, onCreateSubmit, onEditSubmit, initialData }) => 
     enableReinitialize: true,
     initialValues: initialData || {
       id: uuidv4(),
+      discord_token: null,
       create: true,
       profile_name: "Profile Name",
       first_name: "",

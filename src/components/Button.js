@@ -3,6 +3,7 @@ import React from "react";
 const Button = ({ primary = true, className = "", ...rest }) => {
   return (
     <button
+      type="button"
       {...rest}
       className={`outline-none h-10 w-36 text-center select-none rounded-xl font-bold ${
         primary
