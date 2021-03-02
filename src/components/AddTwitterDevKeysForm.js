@@ -25,7 +25,10 @@ const AddTwitterDevKeysForm = ({ onClose, twitterDevKeys, onSaveKeys }) => {
     }),
   });
   return (
-    <div className="w-full h-full flex bg-blue-900 bg-opacity-50" onMouseDown={onClose}>
+    <div
+      className="w-full h-full flex bg-blue-900 bg-opacity-50 overflow-auto"
+      onMouseDown={onClose}
+    >
       <form
         onSubmit={handleSubmit}
         className="text-white font-semibold m-auto bg-blue-900 rounded max-w-lg w-full px-16 py-6"

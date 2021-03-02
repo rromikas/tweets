@@ -5,7 +5,6 @@ import {
   Area,
   BarChart,
   Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -16,6 +15,7 @@ import moment from "moment";
 import CardImage from "assets/Card.svg";
 import { SizeMe } from "react-sizeme";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import { Flipper, Flipped } from "react-flip-toolkit";
 
 const Button = ({ className = "", ...rest }) => {
   return (
@@ -51,7 +51,7 @@ const Analytics = () => {
     { title: "ActiveCollab", keys: new Array(3).fill(0).map((x) => uuidv4()) },
   ];
 
-  const [figures, setFigures] = useState([
+  const [figures] = useState([
     {
       title: "Checkouts",
       values: [
@@ -183,57 +183,64 @@ const Analytics = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap justify-center pb-4 flex-grow items-center">
+              <Flipper
+                flipKey={cartToShowIndex}
+                className="flex flex-wrap justify-center pb-4 flex-grow items-center"
+              >
                 {figures.map((x, i) => (
                   <div
                     onClick={() => setCartToShowIndex(cartToShowIndex === i ? -1 : i)}
                     key={`figure-${i}`}
-                    className="transform hover:scale-105 transition select-none cursor-pointer rounded-xl flex-none mb-4 mr-4 bg-cover bg-center w-56 bg-opacity-50 p-3 relative"
+                    className="transition select-none cursor-pointer rounded-xl flex-none mb-4 mr-4 bg-cover bg-center w-56 bg-opacity-50 p-3 relative"
                     style={{ backgroundImage: `url(${CardImage})` }}
                   >
                     {cartToShowIndex === i ? (
-                      <div
-                        style={{ transform: "translateX(-50%)" }}
-                        className="absolute bottom-full left-1/2 right-0 w-72 h-60 pb-5"
-                      >
-                        <div className="bg-blue-900 px-7 pb-7 pt-10 rounded-lg h-full">
-                          <ResponsiveContainer>
-                            <BarChart data={x.values} margin={{ left: 0 }}>
-                              <CartesianGrid
-                                strokeWidth={4}
-                                className="stroke-current text-blue-500 text-opacity-30"
-                                vertical={false}
-                              ></CartesianGrid>
-                              <Bar dataKey="value" fill="#4fff9e" radius={[6, 6, 6, 6]} />
-                              <YAxis
-                                width={40}
-                                tick={{ fill: "white", fontWeight: 600, fontSize: 14 }}
-                                axisLine={false}
-                                tickLine={false}
-                              />
-                              <XAxis
-                                axisLine={false}
-                                tickLine={false}
-                                tickMargin={10}
-                                dataKey="date"
-                                tick={{ fill: "white", fontSize: 14, fontWeight: 600 }}
-                              ></XAxis>
-                            </BarChart>
-                          </ResponsiveContainer>
+                      <Flipped flipId="graphs">
+                        <div className="absolute bottom-full w-64 h-64 -left-4 pb-3">
+                          <div className="bg-blue-900 px-7 pb-7 pt-10 rounded-lg h-full">
+                            <ResponsiveContainer>
+                              <BarChart data={x.values} margin={{ left: 0 }}>
+                                <CartesianGrid
+                                  strokeWidth={4}
+                                  className="stroke-current text-blue-500 text-opacity-30"
+                                  vertical={false}
+                                ></CartesianGrid>
+                                <Bar
+                                  dataKey="value"
+                                  fill={x.title === "Failed Checkouts" ? "#ff4f4f" : "#4fff9e"}
+                                  radius={[6, 6, 6, 6]}
+                                />
+                                <YAxis
+                                  width={30}
+                                  tick={{ fill: "white", fontWeight: 600, fontSize: 14 }}
+                                  axisLine={false}
+                                  tickLine={false}
+                                />
+                                <XAxis
+                                  interval={0}
+                                  axisLine={false}
+                                  tickLine={false}
+                                  tickMargin={10}
+                                  dataKey="date"
+                                  tick={{ fill: "white", fontSize: 13, fontWeight: 600 }}
+                                ></XAxis>
+                              </BarChart>
+                            </ResponsiveContainer>
+                          </div>
                         </div>
-                      </div>
+                      </Flipped>
                     ) : null}
                     <div className="pt-7 text-xl mb-1 text-center">{x.title}</div>
                     <div
                       className={`${
-                        x.values[x.values.length - 1].value < 5 ? "text-red-500" : "text-green"
+                        x.title === "Failed Checkouts" ? "text-red-500" : "text-green"
                       } text-4xl text-center`}
                     >
                       {x.values[x.values.length - 1].value}
                     </div>
                   </div>
                 ))}
-              </div>
+              </Flipper>
             </div>
           </SimpleBar>
         )}

@@ -14,6 +14,11 @@ import StatefullValue from "components/StatefullValue";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import { v4 as uuidv4 } from "uuid";
 import Collapse from "@material-ui/core/Collapse";
+import { Flipper, Flipped, spring } from "react-flip-toolkit";
+import { createConfirmation } from "react-confirm";
+import Captcha from "components/Captcha";
+
+const confirmPlay = createConfirmation(Captcha);
 
 const Tasks = ({ profiles }) => {
   const [tasks, setTasks] = useState([
@@ -24,8 +29,8 @@ const Tasks = ({ profiles }) => {
       retweet: true,
       delay: "SS",
       status: "stopped",
-      profileId: profiles[0].id,
-      dasboard: dashboards[6],
+      profileIds: [profiles[0].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "twitter",
       id: uuidv4(),
     },
@@ -36,8 +41,8 @@ const Tasks = ({ profiles }) => {
       retweet: false,
       delay: "SS",
       status: "running",
-      profileId: profiles[0].id,
-      dasboard: dashboards[7],
+      profileIds: [profiles[0].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "instagram",
       id: uuidv4(),
     },
@@ -48,8 +53,8 @@ const Tasks = ({ profiles }) => {
       retweet: false,
       delay: "SS",
       status: "stopped",
-      profileId: profiles[1].id,
-      dasboard: dashboards[8],
+      profileIds: [profiles[1].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "twitter",
       id: uuidv4(),
     },
@@ -60,8 +65,8 @@ const Tasks = ({ profiles }) => {
       retweet: true,
       delay: "SS",
       status: "stopped",
-      profileId: profiles[0].id,
-      dasboard: dashboards[4],
+      profileIds: [profiles[0].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "instagram",
       id: uuidv4(),
     },
@@ -72,8 +77,8 @@ const Tasks = ({ profiles }) => {
       retweet: false,
       delay: "SS",
       status: "running",
-      profileId: profiles[1].id,
-      dasboard: dashboards[1],
+      profileIds: [profiles[1].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "twitter",
       id: uuidv4(),
     },
@@ -84,8 +89,8 @@ const Tasks = ({ profiles }) => {
       retweet: true,
       delay: "SS",
       status: "stopped",
-      profileId: profiles[0].id,
-      dasboard: dashboards[0],
+      profileIds: [profiles[0].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "instagram",
       id: uuidv4(),
     },
@@ -97,8 +102,8 @@ const Tasks = ({ profiles }) => {
       retweet: false,
       delay: "SS",
       status: "running",
-      profileId: profiles[1].id,
-      dasboard: dashboards[6],
+      profileIds: [profiles[1].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "twitter",
     },
     {
@@ -109,8 +114,8 @@ const Tasks = ({ profiles }) => {
       retweet: true,
       delay: "SS",
       status: "stopped",
-      profileId: profiles[0].id,
-      dasboard: dashboards[5],
+      profileIds: [profiles[0].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "instagram",
     },
     {
@@ -121,8 +126,8 @@ const Tasks = ({ profiles }) => {
       retweet: true,
       delay: "SS",
       status: "running",
-      profileId: profiles[1].id,
-      dasboard: dashboards[2],
+      profileIds: [profiles[1].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "twitter",
     },
     {
@@ -133,8 +138,8 @@ const Tasks = ({ profiles }) => {
       retweet: false,
       delay: "SS",
       status: "stopped",
-      profileId: profiles[0].id,
-      dasboard: dashboards[1],
+      profileIds: [profiles[0].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "instagram",
     },
     {
@@ -145,8 +150,8 @@ const Tasks = ({ profiles }) => {
       retweet: true,
       delay: "SS",
       status: "stopped",
-      profileId: profiles[1].id,
-      dasboard: dashboards[3],
+      profileIds: [profiles[1].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "twitter",
     },
     {
@@ -157,13 +162,14 @@ const Tasks = ({ profiles }) => {
       retweet: true,
       delay: "SS",
       status: "running",
-      profileId: profiles[0].id,
-      dasboard: dashboards[4],
+      profileIds: [profiles[0].id],
+      dashboard: dashboards.TL[0],
       socialNetwork: "twitter",
     },
   ]);
 
   const [taskFormOpened, setTaskFormOpened] = useState(false);
+  const [taskToEdit, setTaskToEdit] = useState(null);
 
   const bodyRef = useRef(null);
   const headerRef = useRef(null);
@@ -175,12 +181,15 @@ const Tasks = ({ profiles }) => {
     };
   }, []);
 
-  const onPlay = (index) => () => {
-    setTasks((prev) => {
-      let arr = [...prev];
-      arr[index].status = "running";
-      return arr;
-    });
+  const onPlay = (index) => async () => {
+    let res = await confirmPlay();
+    if (res) {
+      setTasks((prev) => {
+        let arr = [...prev];
+        arr[index].status = "running";
+        return arr;
+      });
+    }
   };
 
   const onPause = (index) => () => {
@@ -192,7 +201,8 @@ const Tasks = ({ profiles }) => {
   };
 
   const onEdit = (index) => () => {
-    alert("implement edit");
+    setTaskToEdit(tasks[index]);
+    setTaskFormOpened(true);
   };
 
   const onDelete = (index) => () => {
@@ -216,7 +226,14 @@ const Tasks = ({ profiles }) => {
   ];
 
   const generalActions = [
-    { icon: CreateIcon, title: "Create Task", onClick: () => setTaskFormOpened(true) },
+    {
+      icon: CreateIcon,
+      title: "Create Task",
+      onClick: () => {
+        setTaskToEdit(null);
+        setTaskFormOpened(true);
+      },
+    },
     {
       icon: PlayIcon,
       title: "Start All",
@@ -234,10 +251,18 @@ const Tasks = ({ profiles }) => {
     setTasks((prev) => prev.concat([values]));
   };
 
+  const editTask = (values) => {
+    setTasks((prev) => {
+      let arr = [...prev];
+      arr[arr.findIndex((x) => x.id === values.id)] = values;
+      return arr;
+    });
+  };
+
   const [showInfoTaskId, setShowInfoTaskId] = useState("");
 
   return (
-    <div className="w-full h-full flex flex-col text-white font-medium">
+    <Flipper className="w-full h-full flex flex-col text-white font-medium" flipKey={tasks.length}>
       <div className="text-center mb-2 font-bold">Manage Your Tasks</div>
       <Modal
         classes={{ root: "bg-blue-500 bg-opacity-0" }}
@@ -246,6 +271,8 @@ const Tasks = ({ profiles }) => {
         hideBackdrop
       >
         <TaskForm
+          editTask={editTask}
+          initialTask={taskToEdit}
           onClose={() => setTaskFormOpened(false)}
           profiles={profiles}
           addTask={addTask}
@@ -268,81 +295,100 @@ const Tasks = ({ profiles }) => {
       </SimpleBar>
       <SimpleBar ref={bodyRef} className="flex-grow h-0 ml-5 mr-1 mb-4 pr-4">
         {tasks.map((task, i) => (
-          <div style={{ minWidth: 700 }} key={`task-${task.id}`}>
-            <div className="bg-blue-700 mb-2 rounded py-2">
-              <div className="flex">
-                <div className="flex flex-grow text-center">
-                  <div className="w-3/12">{task.username}</div>
-                  <div
-                    className={`${task.retweet ? "text-green" : "text-red-500"} capitalize w-3/12`}
-                  >
-                    {task.retweet.toString()}
-                  </div>
-                  <div className="w-3/12">{task.delay}</div>
-                  <div
-                    className={`${
-                      task.status === "running" ? "text-green" : "text-red-500"
-                    } capitalize w-3/12`}
-                  >
-                    <StatefullValue
-                      value={task.status}
-                      time={2000}
-                      loadValue={<span className="text-yellow-500">Submitting...</span>}
-                    ></StatefullValue>
-                  </div>
-                </div>
-                <div className="flex w-48 justify-center select-none">
-                  {taskActions.map((action, j) => (
+          <Flipped
+            flipId={task.id}
+            onExit={(el, ind, removeEl) => {
+              spring({
+                onUpdate: (val) => {
+                  el.style.opacity = 1 - val;
+                },
+                onComplete: removeEl,
+              });
+            }}
+            key={`task-${task.id}`}
+          >
+            <div style={{ minWidth: 700 }}>
+              <div className="bg-blue-700 mb-2 rounded py-2">
+                <div className="flex">
+                  <div className="flex flex-grow text-center">
+                    <div className="w-3/12">{task.username}</div>
                     <div
-                      key={`task-${0}-action-${j}`}
-                      onClick={action.onClick(i)}
-                      className="rounded w-7 h-7 p-1.5 active:bg-blue-800 bg-blue-800 active hover:bg-blue-900 hover:scale-105 transform cursor-pointer transition-all flex items-center justify-center mr-2"
+                      className={`${
+                        task.retweet ? "text-green" : "text-red-500"
+                      } capitalize w-3/12`}
                     >
-                      <img alt="" className="h-auto max-h-4 max-w-4 w-auto" src={action.icon}></img>
+                      {task.retweet.toString()}
                     </div>
-                  ))}
+                    <div className="w-3/12">{task.delay}</div>
+                    <div
+                      className={`${
+                        task.status === "running" ? "text-green" : "text-red-500"
+                      } capitalize w-3/12`}
+                    >
+                      <StatefullValue
+                        value={task.status}
+                        time={2000}
+                        loadValue={<span className="text-yellow-500">Submitting...</span>}
+                      ></StatefullValue>
+                    </div>
+                  </div>
+                  <div className="flex w-48 justify-center select-none">
+                    {taskActions.map((action, j) => (
+                      <div
+                        key={`task-${0}-action-${j}`}
+                        onClick={action.onClick(i)}
+                        className="rounded w-7 h-7 p-1.5 active:bg-blue-800 bg-blue-800 active hover:bg-blue-900 hover:scale-105 transform cursor-pointer transition-all flex items-center justify-center mr-2"
+                      >
+                        <img
+                          alt=""
+                          className="h-auto max-h-4 max-w-4 w-auto"
+                          src={action.icon}
+                        ></img>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+                <Collapse in={showInfoTaskId === task.id}>
+                  <div className="flex">
+                    <div className="flex flex-grow text-center">
+                      <div className="w-3/12">youremail@gmail.com</div>
+                      <div className="w-6/12"></div>
+                      <div
+                        className={`${
+                          task.status === "running" ? "text-green" : "text-red-500"
+                        } capitalize w-3/12`}
+                      >
+                        <StatefullValue
+                          value={task.status}
+                          time={2000}
+                          loadValue={<span className="text-yellow-500">Submitting...</span>}
+                        ></StatefullValue>
+                      </div>
+                    </div>
+                    <div className="w-48"></div>
+                  </div>
+                  <div className="flex">
+                    <div className="flex flex-grow text-center">
+                      <div className="w-3/12">youremail@gmail.com</div>
+                      <div className="w-6/12"></div>
+                      <div
+                        className={`${
+                          task.status === "running" ? "text-green" : "text-red-500"
+                        } capitalize w-3/12`}
+                      >
+                        <StatefullValue
+                          value={task.status}
+                          time={2000}
+                          loadValue={<span className="text-yellow-500">Submitting...</span>}
+                        ></StatefullValue>
+                      </div>
+                    </div>
+                    <div className="w-48"></div>
+                  </div>
+                </Collapse>
               </div>
-              <Collapse in={showInfoTaskId === task.id}>
-                <div className="flex">
-                  <div className="flex flex-grow text-center">
-                    <div className="w-3/12">youremail@gmail.com</div>
-                    <div className="w-6/12"></div>
-                    <div
-                      className={`${
-                        task.status === "running" ? "text-green" : "text-red-500"
-                      } capitalize w-3/12`}
-                    >
-                      <StatefullValue
-                        value={task.status}
-                        time={2000}
-                        loadValue={<span className="text-yellow-500">Submitting...</span>}
-                      ></StatefullValue>
-                    </div>
-                  </div>
-                  <div className="w-48"></div>
-                </div>
-                <div className="flex">
-                  <div className="flex flex-grow text-center">
-                    <div className="w-3/12">youremail@gmail.com</div>
-                    <div className="w-6/12"></div>
-                    <div
-                      className={`${
-                        task.status === "running" ? "text-green" : "text-red-500"
-                      } capitalize w-3/12`}
-                    >
-                      <StatefullValue
-                        value={task.status}
-                        time={2000}
-                        loadValue={<span className="text-yellow-500">Submitting...</span>}
-                      ></StatefullValue>
-                    </div>
-                  </div>
-                  <div className="w-48"></div>
-                </div>
-              </Collapse>
             </div>
-          </div>
+          </Flipped>
         ))}
       </SimpleBar>
       <SimpleBar className="pb-4">
@@ -368,7 +414,7 @@ const Tasks = ({ profiles }) => {
           </div>
         </div>
       </SimpleBar>
-    </div>
+    </Flipper>
   );
 };
 

@@ -39,7 +39,10 @@ const DiscordTaskForm = ({ onAddTask, onClose, currentChannel, initialTask, onEd
     }),
   });
   return (
-    <div className="w-full h-full flex bg-blue-900 bg-opacity-50" onMouseDown={onClose}>
+    <div
+      className="w-full h-full flex bg-blue-900 bg-opacity-50 overflow-auto"
+      onMouseDown={onClose}
+    >
       <form
         onSubmit={handleSubmit}
         className="text-white font-semibold m-auto bg-blue-1000 rounded max-w-2xl w-full px-16 py-6"

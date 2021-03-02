@@ -33,7 +33,6 @@ module.exports = {
       white: colors.white,
       gray: colors.trueGray,
       indigo: colors.indigo,
-
       yellow: colors.amber,
     },
   },

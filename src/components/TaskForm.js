@@ -17,10 +17,16 @@ const IconComponent = () => {
   );
 };
 
-const TaskForm = ({ profiles, onClose, addTask, ...rest }) => {
+const TaskForm = ({ profiles, onClose, addTask, editTask, initialTask, ...rest }) => {
+  console.log("initial task", initialTask, rest);
   const { values, handleSubmit, setFieldValue, handleChange, errors, submitCount } = useFormik({
     onSubmit: (values, { resetForm }) => {
-      addTask(values);
+      if (initialTask) {
+        editTask(values);
+      } else {
+        addTask(values);
+      }
+
       resetForm();
       onClose();
     },
@@ -34,17 +40,22 @@ const TaskForm = ({ profiles, onClose, addTask, ...rest }) => {
       privateAccMode: true,
       delay: "SS",
       status: "running",
+      ...initialTask,
     },
     validationSchema: Yup.object().shape({
       username: Yup.string().required("Required"),
       profileIds: Yup.array().test({ test: (val) => val.length > 0, message: "Required" }),
       dashboard: Yup.string().required("Required"),
-      baseUrl: Yup.string().required("Required"),
+      baseUrl: Yup.string(),
     }),
   });
 
   return (
-    <div className="w-full h-full flex bg-blue-900 bg-opacity-50" onMouseDown={onClose} {...rest}>
+    <div
+      className="w-full h-full overflow-auto flex bg-blue-900 bg-opacity-50"
+      onMouseDown={onClose}
+      {...rest}
+    >
       <form
         onSubmit={handleSubmit}
         className="text-white font-semibold m-auto bg-blue-900 rounded max-w-lg w-full px-16 py-6"
