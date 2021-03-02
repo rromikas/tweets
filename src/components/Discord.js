@@ -8,11 +8,11 @@ import Modal from "@material-ui/core/Modal";
 import DiscordTaskForm from "components/DiscordTaskForm";
 import ButtonBase from "@material-ui/core/ButtonBase";
 
-const Button = ({ primary = true, ...rest }) => {
+const Button = ({ primary = true, className, ...rest }) => {
   return (
     <ButtonBase
       {...rest}
-      className={`outline-none py-.05 px-4 select-none rounded font-bold ${
+      className={`${className} outline-none py-.05 px-4 select-none rounded font-bold ${
         primary ? "bg-blue-500 hover:bg-blue-501" : "bg-red-500 hover:bg-red-501"
       }  transition cursor-pointer`}
     ></ButtonBase>
@@ -273,23 +273,22 @@ const Discord = () => {
                           </Select>
                         </div>
                         <div className="flex">
-                          <div className="mr-2">
-                            <Button
-                              onClick={() => {
-                                setChannels((prev) => {
-                                  let arr = [...prev];
-                                  arr.find(
-                                    (x) =>
-                                      x.channel === currentChannel.channel &&
-                                      x.category === currentChannel.category
-                                  ).messages = [];
-                                  return arr;
-                                });
-                              }}
-                            >
-                              Clear
-                            </Button>
-                          </div>
+                          <Button
+                            className="mr-2"
+                            onClick={() => {
+                              setChannels((prev) => {
+                                let arr = [...prev];
+                                arr.find(
+                                  (x) =>
+                                    x.channel === currentChannel.channel &&
+                                    x.category === currentChannel.category
+                                ).messages = [];
+                                return arr;
+                              });
+                            }}
+                          >
+                            Clear
+                          </Button>
                           <Button primary={false}>Close</Button>
                         </div>
                       </div>
@@ -351,16 +350,15 @@ const Discord = () => {
                                 <div className="w-2/5 flex-shrink">#{x.channel}</div>
                                 <div className="w-2/5 flex-shrink">{x.keywords}</div>
                                 <div className="flex-grow flex justify-end">
-                                  <div className="mr-2">
-                                    <Button
-                                      onClick={() => {
-                                        setInitialTaskIndex(i);
-                                        setDiscordTaskFormOpened(true);
-                                      }}
-                                    >
-                                      Edit
-                                    </Button>
-                                  </div>
+                                  <Button
+                                    className="mr-2"
+                                    onClick={() => {
+                                      setInitialTaskIndex(i);
+                                      setDiscordTaskFormOpened(true);
+                                    }}
+                                  >
+                                    Edit
+                                  </Button>
                                   <Button primary={false}>Stop</Button>
                                 </div>
                               </div>
