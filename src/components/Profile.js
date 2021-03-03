@@ -79,7 +79,8 @@ const Profile = ({ profiles, setProfiles }) => {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="mr-1 break-normal">
-                    {`XXXX-XXXX-XXXX-${p.card_number.toString().slice(-4)}`}
+                    XXXX-XXXX-XXXX-
+                    <span className="text-green">{p.card_number.toString().slice(-4)}</span>
                   </div>
                   <div className="flex items-center">
                     {actions.map((a, j) => (

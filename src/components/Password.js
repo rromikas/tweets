@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import CheckIcon from "assets/Check.png";
+import ButtonBase from "@material-ui/core/ButtonBase";
 
 const Button = ({ className = "", ...rest }) => {
   return (
-    <div
+    <ButtonBase
       {...rest}
-      className={`w-36 leading-9 h-9 text-sm text-center rounded-2xl bg-blue-500 hover:bg-blue-501 active:bg-blue-502 cursor-pointer transition select-none whitespace-nowrap ${className}`}
-    ></div>
+      className={`block w-36 leading-9 font-bold h-9 text-sm text-center rounded-2xl bg-blue-500 hover:bg-blue-501 outline-none cursor-pointer transition select-none whitespace-nowrap ${className}`}
+    ></ButtonBase>
   );
 };
 
@@ -85,7 +86,8 @@ const Password = ({ onClose }) => {
           </div>
           <div className="mb-4 flex items-end">
             <div className="py-1">
-              <Button>Reverse Password</Button>
+              <Button className="mb-2">Reverse Password</Button>
+              <Button>Remove Specials</Button>
             </div>
           </div>
         </div>

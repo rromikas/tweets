@@ -162,8 +162,8 @@ const Settings = ({ profiles, setProfiles }) => {
               </div>
               <div className="mb-3">
                 <div className="mb-1">Twitter Account</div>
-                <div className="p-3 bg-blue-700 rounded flex justify-center">
-                  <div>
+                <div className="p-3 bg-blue-700 rounded flex flex-wrap justify-center">
+                  <div className="mr-3 my-2">
                     <Button
                       onClick={() =>
                         twitterAccount ? setTwitterAcount(null) : setOpenedModalIndex(0)
@@ -177,6 +177,19 @@ const Settings = ({ profiles, setProfiles }) => {
                     ) : (
                       <div className="text-center text-red-500">Not Logged In</div>
                     )}
+                  </div>
+                  <div className="flex my-2">
+                    <div className="w-36 mr-2">
+                      <input
+                        value={discordWebhook}
+                        onChange={(e) => setDiscordWebhook(e.target.value)}
+                        spellCheck={false}
+                        type="text"
+                        className="w-full outline-none bg-blue-900 py-2 px-4 rounded-xl mb-2"
+                      ></input>
+                      <div className="text-center">Delay (MS)</div>
+                    </div>
+                    <Button className="w-auto px-5">Set</Button>
                   </div>
                 </div>
               </div>

@@ -48,7 +48,7 @@ const Home = () => {
       values: [
         "https://dashboard.tweet-catcher.com/purchase?password=",
         "",
-        { title: "password", value: "RESTOCK2021!!!" },
+        { title: "password = ", value: "RESTOCK2021!!!" },
       ],
       source: "twitter",
     },
