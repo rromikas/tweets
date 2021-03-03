@@ -43,10 +43,8 @@ const Password = ({ onClose }) => {
         <div className="mb-3">Enter Password</div>
         <input
           spellCheck={false}
-          type="password"
           value={data.password}
           onChange={(e) => setData((prev) => ({ ...prev, password: e.target.value }))}
-          style={{ fontFamily: "sans serif" }}
           className="bg-blue-700 mb-4 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4"
           name="password"
         ></input>
