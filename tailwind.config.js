@@ -7,6 +7,9 @@ module.exports = {
   important: true,
 
   theme: {
+    filter: {
+      invert: "invert(0.7)",
+    },
     fontFamily: {
       jost: ["Jost", "sans-serif"],
     },
@@ -42,5 +45,5 @@ module.exports = {
       backgroundColor: ["active"],
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-filters")],
 };

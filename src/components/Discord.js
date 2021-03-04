@@ -7,6 +7,8 @@ import moment from "moment";
 import Modal from "@material-ui/core/Modal";
 import DiscordTaskForm from "components/DiscordTaskForm";
 import ButtonBase from "@material-ui/core/ButtonBase";
+import Collapse from "@material-ui/core/Collapse";
+import ArrowDown from "assets/ArrowDown.png";
 
 const Button = ({ primary = true, className, ...rest }) => {
   return (
@@ -116,6 +118,17 @@ const Discord = () => {
     channel: "General",
   });
 
+  const [channelsCategories, setChannelsCategories] = useState([
+    {
+      category: "text",
+      expanded: true,
+    },
+    {
+      category: "voice",
+      expanded: true,
+    },
+  ]);
+
   const [discordTaskFormOpened, setDiscordTaskFormOpened] = useState(false);
   const [tasks, setTasks] = useState([
     { channel: "General", category: "text", dashboard: "", keywords: "+cyber", baseUrl: "" },
@@ -149,24 +162,26 @@ const Discord = () => {
         onClose={() => setDiscordTaskFormOpened(false)}
         hideBackdrop
       >
-        <DiscordTaskForm
-          initialTask={initialTaskIndex > -1 ? tasks[initialTaskIndex] : null}
-          currentChannel={currentChannel}
-          onClose={() => {
-            setDiscordTaskFormOpened(false);
-            setInitialTaskIndex(-1);
-          }}
-          onAddTask={(values) => {
-            setTasks((prev) => prev.concat([values]));
-          }}
-          onEdit={(values) => {
-            setTasks((prev) => {
-              let arr = [...prev];
-              arr[initialTaskIndex] = values;
-              return arr;
-            });
-          }}
-        ></DiscordTaskForm>
+        <div className="w-full h-full">
+          <DiscordTaskForm
+            initialTask={initialTaskIndex > -1 ? tasks[initialTaskIndex] : null}
+            currentChannel={currentChannel}
+            onClose={() => {
+              setDiscordTaskFormOpened(false);
+              setInitialTaskIndex(-1);
+            }}
+            onAddTask={(values) => {
+              setTasks((prev) => prev.concat([values]));
+            }}
+            onEdit={(values) => {
+              setTasks((prev) => {
+                let arr = [...prev];
+                arr[initialTaskIndex] = values;
+                return arr;
+              });
+            }}
+          ></DiscordTaskForm>
+        </div>
       </Modal>
       <div className="w-full h-full flex flex-col text-white font-bold">
         <div className="text-center mb-2 font-bold">Discord</div>
@@ -183,44 +198,54 @@ const Discord = () => {
                 ))}
               </div>
             </SimpleBar>
-            <SimpleBar className="w-48 bg-blue-900 flex-shrink-0 py-3 hidden lg:block">
-              <div className="mb-2 text-gray-300">- Text Channels</div>
-              <div className="mb-4 pl-2">
-                {channels
-                  .filter((x) => x.category === "text")
-                  .map((ch, i) => (
-                    <div
-                      className="cursor-pointer"
-                      onClick={() =>
-                        setCurrentChannel((prev) =>
-                          Object.assign({}, prev, { category: ch.category, channel: ch.channel })
-                        )
-                      }
-                      key={`text-channel-${i}`}
-                    >
-                      #{ch.channel}
+            <div className="w-48 bg-blue-900 flex-shrink-0 py-3 hidden lg:block">
+              {channelsCategories.map((x, i) => (
+                <div key={`channel-category-${i}`}>
+                  <div
+                    className="mb-2 text-gray-300 flex items-center select-none cursor-pointer"
+                    onClick={() =>
+                      setChannelsCategories((prev) => {
+                        return prev.map((u, ind) =>
+                          ind === i ? { ...u, expanded: !prev[i].expanded } : u
+                        );
+                      })
+                    }
+                  >
+                    <div className="mr-2">
+                      - <span className="capitalize">{x.category}</span> Channels
                     </div>
-                  ))}
-              </div>
-              <div className="mb-2 text-gray-300">- Voice Channels</div>
-              <div className="mb-4 pl-2">
-                {channels
-                  .filter((x) => x.category === "voice")
-                  .map((ch, i) => (
                     <div
-                      className="cursor-pointer"
-                      onClick={() =>
-                        setCurrentChannel((prev) =>
-                          Object.assign({}, prev, { category: "voice", channel: ch.channel })
-                        )
-                      }
-                      key={`voice-channel-${i}`}
+                      className={`w-3 h-3 filter-invert transition transform ${
+                        x.expanded ? "-rotate-90" : ""
+                      }`}
                     >
-                      #{ch.channel}
+                      <img alt="expand" className="-mt-1" src={ArrowDown}></img>
                     </div>
-                  ))}
-              </div>
-            </SimpleBar>
+                  </div>{" "}
+                  <Collapse in={x.expanded} key={`collapse-${i}`}>
+                    <div className="mb-4 pl-2">
+                      {channels
+                        .filter((c) => c.category === x.category)
+                        .map((ch, j) => (
+                          <div
+                            className="cursor-pointer"
+                            onClick={() => {
+                              setCurrentChannel((prev) => ({
+                                ...prev,
+                                category: ch.category,
+                                channel: ch.channel,
+                              }));
+                            }}
+                            key={`text-channel-${j}`}
+                          >
+                            #{ch.channel}
+                          </div>
+                        ))}
+                    </div>
+                  </Collapse>
+                </div>
+              ))}
+            </div>
             <div className="flex-grow flex flex-col pt-2">
               <SizeMe monitorHeight>
                 {({ size }) => {
@@ -347,7 +372,7 @@ const Discord = () => {
                                 x.channel === currentChannel.channel
                             )
                             .map((x, i) => (
-                              <div className="flex mb-2">
+                              <div className="flex mb-2" key={`task-${i}`}>
                                 <div className="w-2/5 flex-shrink">#{x.channel}</div>
                                 <div className="w-2/5 flex-shrink">{x.keywords}</div>
                                 <div className="flex-grow flex justify-end">

@@ -61,7 +61,8 @@ const TaskForm = ({ profiles, onClose, addTask, editTask, initialTask, ...rest }
         onMouseDown={(e) => e.stopPropagation()}
       >
         <div className="text-center text-xl mb-7">
-          Create A Task (<span className="capitalize">{values.socialNetwork}</span>)
+          {initialTask ? "Edit" : "Create"} A Task (
+          <span className="capitalize">{values.socialNetwork}</span>)
         </div>
         <div className="flex justify-between mb-3">
           <Button onClick={() => setFieldValue("socialNetwork", "twitter")}>Twitter</Button>
@@ -189,7 +190,7 @@ const TaskForm = ({ profiles, onClose, addTask, editTask, initialTask, ...rest }
           className="bg-blue-700 mb-5 w-full rounded-2xl border border-transparent outline-none py-2.5 px-4 mb-3"
         ></input>
         <div className="flex justify-center">
-          <Button type="submit">Create</Button>
+          <Button type="submit">{initialTask ? "Save" : "Create"}</Button>
         </div>
       </form>
     </div>
