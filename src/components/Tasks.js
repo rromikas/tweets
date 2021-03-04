@@ -353,7 +353,7 @@ const Tasks = ({ profiles }) => {
                 <Collapse in={showInfoTaskId === task.id}>
                   <div className="flex">
                     <div className="flex flex-grow text-center">
-                      <div className="w-3/12">youremail@gmail.com</div>
+                      <div className="w-3/12 text-green">youremail@gmail.com</div>
                       <div className="w-6/12"></div>
                       <div
                         className={`${
@@ -371,7 +371,7 @@ const Tasks = ({ profiles }) => {
                   </div>
                   <div className="flex">
                     <div className="flex flex-grow text-center">
-                      <div className="w-3/12">youremail@gmail.com</div>
+                      <div className="w-3/12 text-green">youremail@gmail.com</div>
                       <div className="w-6/12"></div>
                       <div
                         className={`${

@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import Button from "components/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import Chip from "@material-ui/core/Chip";
+import { v4 as uuidv4 } from "uuid";
 
 const IconComponent = () => {
   return (
@@ -30,6 +31,7 @@ const TaskForm = ({ profiles, onClose, addTask, editTask, initialTask, ...rest }
       onClose();
     },
     initialValues: {
+      id: uuidv4(),
       socialNetwork: "twitter",
       profileIds: [],
       username: "",

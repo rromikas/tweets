@@ -9,12 +9,14 @@ import DiscordTaskForm from "components/DiscordTaskForm";
 import ButtonBase from "@material-ui/core/ButtonBase";
 import Collapse from "@material-ui/core/Collapse";
 import ArrowDown from "assets/ArrowDown.png";
+import { v4 as uuidv4 } from "uuid";
+import { Flipper, Flipped } from "react-flip-toolkit";
 
 const Button = ({ primary = true, className, ...rest }) => {
   return (
     <ButtonBase
       {...rest}
-      className={`${className} outline-none py-.05 px-4 select-none rounded font-bold ${
+      className={`${className} outline-none h-6 text-center w-16 text-sm inline-flex select-none rounded font-bold ${
         primary ? "bg-blue-500 hover:bg-blue-501" : "bg-red-500 hover:bg-red-501"
       }  transition cursor-pointer`}
     ></ButtonBase>
@@ -131,9 +133,30 @@ const Discord = () => {
 
   const [discordTaskFormOpened, setDiscordTaskFormOpened] = useState(false);
   const [tasks, setTasks] = useState([
-    { channel: "General", category: "text", dashboard: "", keywords: "+cyber", baseUrl: "" },
-    { channel: "General", category: "text", dashboard: "", keywords: "+cyber", baseUrl: "" },
-    { channel: "General", category: "text", dashboard: "", keywords: "+cyber", baseUrl: "" },
+    {
+      channel: "General",
+      category: "text",
+      dashboard: "",
+      keywords: "+cyber",
+      baseUrl: "",
+      id: uuidv4(),
+    },
+    {
+      channel: "General",
+      category: "text",
+      dashboard: "",
+      keywords: "+cyber",
+      baseUrl: "",
+      id: uuidv4(),
+    },
+    {
+      channel: "General",
+      category: "text",
+      dashboard: "",
+      keywords: "+cyber",
+      baseUrl: "",
+      id: uuidv4(),
+    },
   ]);
 
   const [initialTaskIndex, setInitialTaskIndex] = useState(-1);
@@ -359,37 +382,55 @@ const Discord = () => {
                           </div>
                         </div>
                       </SimpleBar>
-                      <SimpleBar className="mt-3" style={{ height: 400 }}>
-                        <div className="bg-blue-900 rounded-t p-3" style={{ minHeight: 400 }}>
-                          <div className="flex justify-between mb-3">
-                            <div>#{currentChannel.channel}</div>
-                            <Button onClick={() => setDiscordTaskFormOpened(true)}>Create</Button>
+                      <SimpleBar className="mt-3 mb-3" style={{ height: 400 }}>
+                        <Flipper flipKey={tasks.length}>
+                          <div className="bg-blue-900 rounded p-3" style={{ minHeight: 400 }}>
+                            <div className="flex justify-between mb-3">
+                              <div>#{currentChannel.channel}</div>
+                              <Button onClick={() => setDiscordTaskFormOpened(true)}>Create</Button>
+                            </div>
+                            {tasks
+                              .filter(
+                                (x) =>
+                                  x.category === currentChannel.category &&
+                                  x.channel === currentChannel.channel
+                              )
+                              .map((x, i) => (
+                                <Flipped flipId={x.id} key={`task-${i}`}>
+                                  <div className="row no-gutters mb-2 flex-wrap">
+                                    <div className="col">#{x.channel}</div>
+                                    <div className="col text-right xl:text-left">{x.keywords}</div>
+                                    <div className="col-12 xl:col-auto flex justify-end">
+                                      <Button
+                                        className="mr-2"
+                                        onClick={() => {
+                                          setInitialTaskIndex(i);
+                                          setDiscordTaskFormOpened(true);
+                                        }}
+                                      >
+                                        Edit
+                                      </Button>
+                                      <Button primary={false} className="mr-2">
+                                        Stop
+                                      </Button>
+                                      <Button
+                                        primary={false}
+                                        onClick={() =>
+                                          setTasks((prev) => {
+                                            let arr = [...prev];
+                                            arr.splice(i, 1);
+                                            return arr;
+                                          })
+                                        }
+                                      >
+                                        Delete
+                                      </Button>
+                                    </div>
+                                  </div>
+                                </Flipped>
+                              ))}
                           </div>
-                          {tasks
-                            .filter(
-                              (x) =>
-                                x.category === currentChannel.category &&
-                                x.channel === currentChannel.channel
-                            )
-                            .map((x, i) => (
-                              <div className="flex mb-2" key={`task-${i}`}>
-                                <div className="w-2/5 flex-shrink">#{x.channel}</div>
-                                <div className="w-2/5 flex-shrink">{x.keywords}</div>
-                                <div className="flex-grow flex justify-end">
-                                  <Button
-                                    className="mr-2"
-                                    onClick={() => {
-                                      setInitialTaskIndex(i);
-                                      setDiscordTaskFormOpened(true);
-                                    }}
-                                  >
-                                    Edit
-                                  </Button>
-                                  <Button primary={false}>Stop</Button>
-                                </div>
-                              </div>
-                            ))}
-                        </div>
+                        </Flipper>
                       </SimpleBar>
                     </SimpleBar>
                   );

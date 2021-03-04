@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import Select from "@material-ui/core/Select";
 import ArrowDown from "assets/ArrowDown.png";
 import { dashboards } from "enumerators";
+import { v4 as uuidv4 } from "uuid";
 
 const IconComponent = () => {
   return (
@@ -26,6 +27,7 @@ const DiscordTaskForm = ({ onAddTask, onClose, currentChannel, initialTask, onEd
       onClose();
     },
     initialValues: {
+      id: uuidv4(),
       keywords: "",
       dashboard: "",
       baseUrl: "",
@@ -118,7 +120,7 @@ const DiscordTaskForm = ({ onAddTask, onClose, currentChannel, initialTask, onEd
           className="bg-blue-700 mb-5 font-semibold w-full rounded-2xl border border-transparent outline-none py-2.5 px-4 mb-3"
         ></input>
         <div className="flex justify-center">
-          <Button type="submit">Create</Button>
+          <Button type="submit">{initialTask ? "Save" : "Create"}</Button>
         </div>
       </form>
     </div>
