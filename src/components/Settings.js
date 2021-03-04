@@ -41,10 +41,12 @@ const Settings = ({ profiles, setProfiles }) => {
         onClose={() => setOpenedModalIndex(-1)}
         hideBackdrop
       >
-        <TwitterLoginForm
-          onClose={() => setOpenedModalIndex(-1)}
-          onAddTwitter={(values) => setTwitterAcount(values)}
-        ></TwitterLoginForm>
+        <div className="w-full h-full">
+          <TwitterLoginForm
+            onClose={() => setOpenedModalIndex(-1)}
+            onAddTwitter={(values) => setTwitterAcount(values)}
+          ></TwitterLoginForm>
+        </div>
       </Modal>
       <Modal
         classes={{ root: "bg-blue-500 bg-opacity-0" }}
@@ -52,17 +54,19 @@ const Settings = ({ profiles, setProfiles }) => {
         onClose={() => setOpenedModalIndex(-1)}
         hideBackdrop
       >
-        <AddDiscordTokensForm
-          profiles={profiles}
-          onClose={() => setOpenedModalIndex(-1)}
-          onAddToken={(values) =>
-            setProfiles((prev) => {
-              let arr = [...prev];
-              arr.find((x) => x.id === values.profile_id).discord_token = values.discord_token;
-              return arr;
-            })
-          }
-        ></AddDiscordTokensForm>
+        <div className="w-full h-full">
+          <AddDiscordTokensForm
+            profiles={profiles}
+            onClose={() => setOpenedModalIndex(-1)}
+            onAddToken={(values) =>
+              setProfiles((prev) => {
+                let arr = [...prev];
+                arr.find((x) => x.id === values.profile_id).discord_token = values.discord_token;
+                return arr;
+              })
+            }
+          ></AddDiscordTokensForm>
+        </div>
       </Modal>
       <Modal
         classes={{ root: "bg-blue-500 bg-opacity-0" }}
@@ -70,11 +74,13 @@ const Settings = ({ profiles, setProfiles }) => {
         onClose={() => setOpenedModalIndex(-1)}
         hideBackdrop
       >
-        <AddTwitterDevKeysForm
-          twitterDevKeys={twitterDevKeys}
-          onClose={() => setOpenedModalIndex(-1)}
-          onSaveKeys={(values) => setTwitterDevKeys((prev) => ({ ...prev, ...values }))}
-        ></AddTwitterDevKeysForm>
+        <div className="w-full h-full">
+          <AddTwitterDevKeysForm
+            twitterDevKeys={twitterDevKeys}
+            onClose={() => setOpenedModalIndex(-1)}
+            onSaveKeys={(values) => setTwitterDevKeys((prev) => ({ ...prev, ...values }))}
+          ></AddTwitterDevKeysForm>
+        </div>
       </Modal>
       <div className="w-full h-full flex flex-col text-white font-bold">
         <div className="text-center mb-2">Settings</div>
@@ -181,8 +187,6 @@ const Settings = ({ profiles, setProfiles }) => {
                   <div className="flex my-2">
                     <div className="w-36 mr-2">
                       <input
-                        value={discordWebhook}
-                        onChange={(e) => setDiscordWebhook(e.target.value)}
                         spellCheck={false}
                         type="text"
                         className="w-full outline-none bg-blue-900 py-2 px-4 rounded-xl mb-2"

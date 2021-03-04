@@ -18,7 +18,6 @@ const IconComponent = () => {
 };
 
 const TaskForm = ({ profiles, onClose, addTask, editTask, initialTask, ...rest }) => {
-  console.log("initial task", initialTask, rest);
   const { values, handleSubmit, setFieldValue, handleChange, errors, submitCount } = useFormik({
     onSubmit: (values, { resetForm }) => {
       if (initialTask) {
@@ -97,7 +96,6 @@ const TaskForm = ({ profiles, onClose, addTask, editTask, initialTask, ...rest }
             getContentAnchorEl: null,
           }}
           onChange={(e) => {
-            console.log(e.target.value);
             setFieldValue("profileIds", e.target.value);
           }}
         >

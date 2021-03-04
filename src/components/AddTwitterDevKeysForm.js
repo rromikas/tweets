@@ -4,7 +4,6 @@ import Button from "components/Button";
 import * as Yup from "yup";
 
 const AddTwitterDevKeysForm = ({ onClose, twitterDevKeys, onSaveKeys }) => {
-  console.log("twitterDevKeys", twitterDevKeys);
   const { values, handleSubmit, handleChange, errors, submitCount } = useFormik({
     onSubmit: (values, { resetForm }) => {
       onSaveKeys(values);

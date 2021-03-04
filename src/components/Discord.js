@@ -176,6 +176,7 @@ const Discord = () => {
               <div className="bg-blue-900 px-2.5 py-4">
                 {users.map((u, i) => (
                   <div
+                    key={`user-${i}`}
                     className="bg-center bg-cover w-16 h-16 mx-auto mb-2"
                     style={{ backgroundImage: `url(${u.user_photo})` }}
                   ></div>

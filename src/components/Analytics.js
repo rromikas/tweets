@@ -61,6 +61,7 @@ const Analytics = () => {
     },
     {
       title: "Failed Checkouts",
+      red: true,
       values: generateData(moment().subtract(12, "months").toDate(), moment().toDate()),
     },
     {
@@ -108,7 +109,13 @@ const Analytics = () => {
                 <div className="sm:w-2/3 md:w-full lg:w-2/3 w-full">
                   <div className="mb-2 flex justify-between">
                     <div>
-                      Graph (<span className="text-green">{figures[cartToShowIndex].title}</span>)
+                      Graph (
+                      <span
+                        className={figures[cartToShowIndex].red ? "text-red-500" : "text-green"}
+                      >
+                        {figures[cartToShowIndex].title}
+                      </span>
+                      )
                     </div>
                     <div className="flex">
                       {modes.map((x) => (

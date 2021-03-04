@@ -270,13 +270,15 @@ const Tasks = ({ profiles }) => {
         onClose={() => setTaskFormOpened(false)}
         hideBackdrop
       >
-        <TaskForm
-          editTask={editTask}
-          initialTask={taskToEdit}
-          onClose={() => setTaskFormOpened(false)}
-          profiles={profiles}
-          addTask={addTask}
-        ></TaskForm>
+        <div className="w-full h-full">
+          <TaskForm
+            editTask={editTask}
+            initialTask={taskToEdit}
+            onClose={() => setTaskFormOpened(false)}
+            profiles={profiles}
+            addTask={addTask}
+          ></TaskForm>
+        </div>
       </Modal>
       <SimpleBar
         ref={headerRef}

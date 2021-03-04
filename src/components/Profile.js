@@ -47,12 +47,14 @@ const Profile = ({ profiles, setProfiles }) => {
         onClose={() => setProfileFormOpened(false)}
         hideBackdrop
       >
-        <ProfileForm
-          onCreateSubmit={onCreateSubmit}
-          onEditSubmit={onEditSubmit}
-          initialData={editingProfileIndex > -1 ? profiles[editingProfileIndex] : null}
-          onClose={() => setProfileFormOpened(false)}
-        ></ProfileForm>
+        <div className="w-full h-full">
+          <ProfileForm
+            onCreateSubmit={onCreateSubmit}
+            onEditSubmit={onEditSubmit}
+            initialData={editingProfileIndex > -1 ? profiles[editingProfileIndex] : null}
+            onClose={() => setProfileFormOpened(false)}
+          ></ProfileForm>
+        </div>
       </Modal>
       <div className="text-center mb-2 font-bold">Manage Your Profiles</div>
       <SimpleBar className="flex-grow h-0 ml-5 mr-1 mb-4 pr-4">

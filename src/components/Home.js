@@ -132,7 +132,7 @@ const Home = () => {
                   {twitterActions.map((x, j) => (
                     <ButtonBase
                       key={`action-${j}}-post-${i}`}
-                      className="bg-blue-800 w-28 mb-2 hover:bg-blue-1000 outline-none transition rounded text-center py-1 text-white font-semibold mx-1"
+                      className="bg-blue-500 w-24 mb-2 hover:bg-blue-501 outline-none transition rounded-xl text-center py-1 text-white font-semibold mx-1"
                     >
                       {x.title}
                     </ButtonBase>
