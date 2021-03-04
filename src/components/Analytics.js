@@ -173,7 +173,7 @@ const Analytics = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-wrap items-end justify-center">
+              <div className="flex flex-wrap items-end justify-center pb-3">
                 {figures.map((x, i) => (
                   <div key={`figure-${i}`}>
                     {i === 0 ? (
